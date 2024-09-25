@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { type Repo } from "~/lib/types";
 import { format, parseISO } from "date-fns";
 import { Info, SortAsc, SortDesc, ExternalLink } from "lucide-react";
@@ -87,7 +87,7 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
   if (orderByChangeAt !== SortOrder.None) {
     data.sort(
       (a, b) =>
-        (a.oss_at > b.oss_at ? 1 : -1) *
+        (a.oss_at.getTime() - b.oss_at.getTime()) *
         (orderByChangeAt === SortOrder.Desc ? -1 : 1),
     );
   }
@@ -95,7 +95,7 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
   if (orderByAdoptedAt !== SortOrder.None) {
     data.sort(
       (a, b) =>
-        (a.fss_at > b.fss_at ? 1 : -1) *
+        (a.fss_at.getTime() - b.fss_at.getTime()) *
         (orderByAdoptedAt === SortOrder.Desc ? -1 : 1),
     );
   }

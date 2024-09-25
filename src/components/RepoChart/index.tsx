@@ -43,12 +43,8 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
     .sort((a, b) => a.fss_at.getTime() - b.fss_at.getTime()); // asc
 
   // determine the full date range
-  const startDate = sortedRepos.length
-    ? subDays(sortedRepos[0].fss_at, 3)
-    : new Date();
-  const endDate = sortedRepos.length
-    ? sortedRepos[sortedRepos.length - 1].fss_at
-    : new Date();
+  const startDate = subDays(sortedRepos[0].fss_at, 3)
+  const endDate = sortedRepos[sortedRepos.length - 1].fss_at
 
   // fill in missing dates with zero values
   const allDates = eachDayOfInterval({
@@ -144,6 +140,13 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
           stroke="var(--color-fcl-1-0)"
           stackId="a"
         />
+        {/* <Area
+          dataKey={License.BUSL}
+          type="monotone"
+          fill="var(--color-busl)"
+          stroke="var(--color-busl)"
+          stackId="a"
+        /> */}
       </AreaChart>
     </ChartContainer>
   );
