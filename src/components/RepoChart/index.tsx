@@ -1,6 +1,6 @@
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { type Repo, License } from "~/lib/types";
-import { format, eachDayOfInterval, subDays } from "date-fns";
+import { format, parseISO, eachDayOfInterval, subDays } from "date-fns";
 import {
   type ChartConfig,
   ChartContainer,
@@ -37,17 +37,17 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
   const sortedRepos = repos
     .map((repo) => ({
       ...repo,
-      fss_at: new Date(repo.fss_at),
-      oss_at: new Date(repo.oss_at),
+      fss_at: parseISO(repo.fss_at),
+      oss_at: parseISO(repo.oss_at),
     }))
     .sort((a, b) => a.fss_at.getTime() - b.fss_at.getTime()); // asc
 
   // determine the full date range
   const startDate = sortedRepos.length
-    ? subDays(new Date(sortedRepos[0].fss_at), 3)
+    ? subDays(sortedRepos[0].fss_at, 3)
     : new Date();
   const endDate = sortedRepos.length
-    ? new Date(sortedRepos[sortedRepos.length - 1].fss_at)
+    ? sortedRepos[sortedRepos.length - 1].fss_at
     : new Date();
 
   // fill in missing dates with zero values
@@ -100,7 +100,7 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
   );
 
   return (
-    <ChartContainer config={config}>
+    <ChartContainer config={config} className="max-h-[400px] w-full">
       <AreaChart data={cumulativeData} accessibilityLayer>
         {/* <CartesianGrid syncWithTicks={true} /> */}
         {/* <YAxis
@@ -117,7 +117,7 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
           tickCount={4}
           // tickMargin={8}
           minTickGap={32}
-          tickFormatter={(t) => format(new Date(t), DATE_FORMAT)}
+          tickFormatter={(t) => format(parseISO(t), DATE_FORMAT)}
         />
         <ChartTooltip
           cursor={false}

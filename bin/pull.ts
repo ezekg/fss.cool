@@ -173,8 +173,12 @@ async function main() {
 
   console.log(`Sorting ${repos.size} FSS repos`);
 
-  const sortedRepos = Array.from(repos).sort((a, b) =>
-    `${a.repo_org}/${a.repo_name}` > `${b.repo_org}/${b.repo_name}` ? 1 : -1, // desc
+  const sortedRepos = Array.from(repos).sort(
+    (a, b) =>
+      `${a.repo_org}/${a.repo_name}`.toLowerCase() >
+      `${b.repo_org}/${b.repo_name}`.toLowerCase()
+        ? 1
+        : -1, // desc
   );
 
   console.log(`Saving ${repos.size} FSS repos`);

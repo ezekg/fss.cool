@@ -20,13 +20,7 @@ export const App: React.FC<AppProps> = ({ repos }) => {
     <StrictMode>
       <Card>
         <CardHeader>
-          <CardTitle>
-            Is{" "}
-            <a href="https://fair.io" rel="noopener" target="_blank">
-              Fair Source
-            </a>{" "}
-            Cool Yet?
-          </CardTitle>
+          <CardTitle>Is Fair Source Cool Yet?</CardTitle>
           <CardDescription>
             Showing adoption of{" "}
             <a
@@ -43,7 +37,7 @@ export const App: React.FC<AppProps> = ({ repos }) => {
         <CardContent>
           <RepoChart repos={repos} />
         </CardContent>
-        <CardFooter className="h-[300px] overflow-y-auto">
+        <CardFooter className="h-[400px] overflow-y-auto">
           <RepoTable repos={repos} />
         </CardFooter>
       </Card>

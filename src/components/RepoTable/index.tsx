@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { type Repo } from "~/lib/types";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { Info, SortAsc, SortDesc, ExternalLink } from "lucide-react";
 import {
   Table,
@@ -79,8 +79,8 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
 
   const data = repos.map((repo) => ({
     ...repo,
-    fss_at: new Date(repo.fss_at),
-    oss_at: new Date(repo.oss_at),
+    fss_at: parseISO(repo.fss_at),
+    oss_at: parseISO(repo.oss_at),
   }));
 
   // FIXME(ezekg) these don't always play nicely together
@@ -168,8 +168,8 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
                 <TooltipTrigger>
                   <Info className="relative inline cursor-pointer pointer-events-auto w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 </TooltipTrigger>
-                <TooltipContent className="w-[300px] whitespace-normal">
-                  <p>
+                <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
+                  <p className="text-xs">
                     The license that the project will eventually transition to
                     under{" "}
                     <a
@@ -202,8 +202,11 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
                 <TooltipTrigger>
                   <Info className="relative inline cursor-pointer pointer-events-auto w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 </TooltipTrigger>
-                <TooltipContent className="w-[300px] whitespace-normal">
-                  <p>When the project first adopted a Fair Source license.</p>
+                <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
+                  <p className="text-xs">
+                    When the project first adopted a Fair Source license (or
+                    best estimate based on the project's commit history).
+                  </p>
                 </TooltipContent>
               </Tooltip>
               <span
@@ -225,10 +228,11 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
                 <TooltipTrigger>
                   <Info className="relative inline cursor-pointer pointer-events-auto w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 </TooltipTrigger>
-                <TooltipContent className="w-[300px] whitespace-normal">
-                  <p>
+                <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
+                  <p className="text-xs">
                     When the project's first Open Source version will be
-                    released under the Change License.
+                    released under the Change License, assuming a standard
+                    2-year delay.
                   </p>
                 </TooltipContent>
               </Tooltip>
