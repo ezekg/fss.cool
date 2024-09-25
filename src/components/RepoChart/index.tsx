@@ -1,5 +1,5 @@
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { type Repo } from "~/lib/types";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { type Repo, License } from "~/lib/types";
 import { format, eachDayOfInterval, subDays } from "date-fns";
 import {
   type ChartConfig,
@@ -12,15 +12,19 @@ const DATE_FORMAT = "yyyy-MM-dd";
 
 const config: ChartConfig = {
   "fsl-1-0": {
-    label: "FSL-1.0",
+    label: License.FSL1x0,
     color: "var(--caribbean-current)",
   },
   "fsl-1-1": {
-    label: "FSL-1.1",
+    label: License.FSL1x1,
     color: "var(--orange-crayola)",
   },
   "fcl-1-0": {
-    label: "FCL-1.0",
+    label: License.FCL1x0,
+    color: "var(--atomic-tangerine)",
+  },
+  "busl": {
+    label: License.BUSL,
     color: "var(--slate-gray)",
   },
 };
@@ -54,9 +58,10 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
 
   const initialData = allDates.map((date) => ({
     date: format(date, DATE_FORMAT),
-    "FSL-1.0": 0,
-    "FSL-1.1": 0,
-    "FCL-1.0": 0,
+    [License.FSL1x0]: 0,
+    [License.FSL1x1]: 0,
+    [License.FCL1x0]: 0,
+    [License.BUSL]: 0,
   }));
 
   // populate the data with repo info and accumulate license adoption
@@ -75,16 +80,18 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
   const cumulativeData = data.reduce(
     (acc: any[], current: any, index: number) => {
       const prev = acc[index - 1] || {
-        "FSL-1.0": 0,
-        "FSL-1.1": 0,
-        "FCL-1.0": 0,
+        [License.FSL1x0]: 0,
+        [License.FSL1x1]: 0,
+        [License.FCL1x0]: 0,
+        [License.BUSL]: 0,
       };
 
       acc.push({
         date: current.date,
-        "FSL-1.0": prev["FSL-1.0"] + current["FSL-1.0"],
-        "FSL-1.1": prev["FSL-1.1"] + current["FSL-1.1"],
-        "FCL-1.0": prev["FCL-1.0"] + current["FCL-1.0"],
+        [License.FSL1x0]: prev[License.FSL1x0] + current[License.FSL1x0],
+        [License.FSL1x1]: prev[License.FSL1x1] + current[License.FSL1x1],
+        [License.FCL1x0]: prev[License.FCL1x0] + current[License.FCL1x0],
+        [License.BUSL]: prev[License.BUSL] + current[License.BUSL],
       });
 
       return acc;
@@ -95,20 +102,24 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
   return (
     <ChartContainer config={config}>
       <AreaChart
-        accessibilityLayer
         data={cumulativeData}
-        margin={{
-          left: 12,
-          right: 12,
-        }}
+        accessibilityLayer
       >
-        <CartesianGrid vertical={false} />
+        {/* <CartesianGrid syncWithTicks={true} /> */}
+        {/* <YAxis
+          // tickLine={false}
+          // axisLine={false}
+          tickCount={10}
+          // tickMargin={0}
+          // minTickGap={0}
+        /> */}
         <XAxis
           dataKey="date"
-          tickLine={false}
-          axisLine={false}
-          tickMargin={8}
-          minTickGap={16}
+          // tickLine={false}
+          // axisLine={false}
+          tickCount={4}
+          // tickMargin={8}
+          minTickGap={32}
           tickFormatter={(t) => format(new Date(t), DATE_FORMAT)}
         />
         <ChartTooltip
@@ -116,26 +127,23 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
           content={<ChartTooltipContent indicator="dot" />}
         />
         <Area
-          dataKey="FSL-1.0"
+          dataKey={License.FSL1x0}
           type="monotone"
           fill="var(--color-fsl-1-0)"
-          fillOpacity={0.4}
           stroke="var(--color-fsl-1-0)"
           stackId="a"
         />
         <Area
-          dataKey="FSL-1.1"
+          dataKey={License.FSL1x1}
           type="monotone"
           fill="var(--color-fsl-1-1)"
-          fillOpacity={0.4}
           stroke="var(--color-fsl-1-1)"
           stackId="a"
         />
         <Area
-          dataKey="FCL-1.0"
+          dataKey={License.FCL1x0}
           type="monotone"
           fill="var(--color-fcl-1-0)"
-          fillOpacity={0.4}
           stroke="var(--color-fcl-1-0)"
           stackId="a"
         />
