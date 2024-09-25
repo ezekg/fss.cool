@@ -23,7 +23,7 @@ export const App: React.FC<AppProps> = ({ repos }) => {
           <a href="https://fair.io" rel="noopener" target="_blank">
             Fair Source
           </a>{" "}
-          cool yet?
+          Cool Yet?
         </CardTitle>
         <CardDescription>
           Showing adoption of{" "}
