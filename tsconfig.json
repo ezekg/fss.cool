@@ -1,7 +1,6 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "verbatimModuleSyntax": false, // required for bin
     "resolveJsonModule": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react",

@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write .",
-    "pull": "npx tsx bin/pull.ts"
+    "pull": "npx tsx --tsconfig tsconfig.bin.json bin/pull.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
