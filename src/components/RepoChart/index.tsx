@@ -23,7 +23,7 @@ const config: ChartConfig = {
     label: License.FCL1x0,
     color: "var(--atomic-tangerine)",
   },
-  "busl": {
+  busl: {
     label: License.BUSL,
     color: "var(--slate-gray)",
   },
@@ -40,7 +40,7 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
       fss_at: new Date(repo.fss_at),
       oss_at: new Date(repo.oss_at),
     }))
-    .sort((a, b) => a.fss_at.getTime() - b.fss_at.getTime());
+    .sort((a, b) => a.fss_at.getTime() - b.fss_at.getTime()); // asc
 
   // determine the full date range
   const startDate = sortedRepos.length
@@ -101,10 +101,7 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
 
   return (
     <ChartContainer config={config}>
-      <AreaChart
-        data={cumulativeData}
-        accessibilityLayer
-      >
+      <AreaChart data={cumulativeData} accessibilityLayer>
         {/* <CartesianGrid syncWithTicks={true} /> */}
         {/* <YAxis
           // tickLine={false}
