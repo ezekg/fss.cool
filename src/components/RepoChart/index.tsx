@@ -123,16 +123,9 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
         accessibilityLayer
       >
         <CartesianGrid syncWithTicks={true} />
-        <YAxis
-          tickLine={false}
-          axisLine={false}
-          tickCount={16}
-          hide={true}
-        />
+        <YAxis tickCount={32} hide={true} />
         <XAxis
           dataKey="date"
-          tickLine={false}
-          axisLine={false}
           tickFormatter={(t) => format(parseISO(t), DATE_FORMAT)}
           tickCount={4}
           hide={true}
