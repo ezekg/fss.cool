@@ -22,7 +22,7 @@ export const App: FC<AppProps> = ({ repos }) => {
       <div className="flex min-h-screen w-full flex-col">
         <header className="top-0 z-10 items-center gap-1 border-b bg-background">
           <div className="flex mx-auto w-full max-w-[1080px] p-4">
-            <div className="gap-1.5">
+            <div className="mr-8">
               <h1 className="text-2xl text-pretty font-semibold tracking-tight">
                 Is Fair Source Cool Yet?
               </h1>
@@ -39,7 +39,7 @@ export const App: FC<AppProps> = ({ repos }) => {
                 licenses over time
               </p>
             </div>
-            <div className="flex items-center ml-auto gap-1.5 text-sm">
+            <div className="flex items-center ml-auto text-sm">
               <Mode />
             </div>
           </div>
