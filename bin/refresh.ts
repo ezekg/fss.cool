@@ -2,7 +2,7 @@ import { Octokit } from "@octokit/rest";
 import { Octokit as OctokitCore } from "@octokit/core";
 import { type RequestOptions } from "@octokit/types";
 import { RequestError } from "@octokit/request-error";
-import { addYears } from "date-fns";
+import { addYears, formatISO } from "date-fns";
 import * as fs from "fs/promises";
 import { version } from "../package.json";
 import {
@@ -158,7 +158,7 @@ async function main() {
   await fs.writeFile(
     "src/data/repos.json",
     JSON.stringify(
-      { updatedAt: new Date().toISOString(), repos: sortedRepos },
+      { updatedAt: formatISO(new Date()), repos: sortedRepos },
       null,
       2,
     ),

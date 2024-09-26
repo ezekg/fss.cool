@@ -1,6 +1,6 @@
 import { type FC, type HTMLAttributes, useState } from "react";
 import { type JsonRepo, type Repo } from "~/lib/types";
-import { format, parseISO } from "date-fns";
+import { format, formatISO, parseISO } from "date-fns";
 import {
   Info,
   SortAsc,
@@ -306,7 +306,7 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
                     <Clock className="inline relative text-muted w-[14px] h-[14px] top-[-1px] ml-1" />
                   </TooltipTrigger>
                   <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
-                    <p className="text-xs">{repo.fss_at.toISOString()}</p>
+                    <p className="text-xs">{formatISO(repo.fss_at)}</p>
                   </TooltipContent>
                 </Tooltip>
               </TableCell>
@@ -317,7 +317,7 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
                     <Clock className="inline relative text-muted w-[14px] h-[14px] top-[-1px] ml-1" />
                   </TooltipTrigger>
                   <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
-                    <p className="text-xs">{repo.oss_at.toISOString()}</p>
+                    <p className="text-xs">{formatISO(repo.oss_at)}</p>
                   </TooltipContent>
                 </Tooltip>
               </TableCell>

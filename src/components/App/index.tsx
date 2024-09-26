@@ -1,6 +1,6 @@
 import { type FC, StrictMode } from "react";
 import { type JsonRepo } from "~/lib/types";
-import { format } from "date-fns";
+import { formatISO } from "date-fns";
 import { RepoChart, RepoTable, Mode } from "~/components";
 
 export type AppProps = {
@@ -47,8 +47,7 @@ export const App: FC<AppProps> = ({ updatedAt, repos }) => {
         <footer className="align-bottom mt-auto">
           <div className="flex flex-1 flex-col mx-auto w-full max-w-[1080px] p-4">
             <p className="text-sm text-muted mb-2">
-              Last updated: {format(updatedAt, "yyyy-MM-dd hh:mm:ss O")}{" "}
-              (updated weekly)
+              Last updated: {formatISO(updatedAt)} (updated weekly)
             </p>
             <p className="text-sm font-semibold text-muted-foreground">
               ❤️{" "}
