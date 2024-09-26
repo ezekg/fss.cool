@@ -18,16 +18,18 @@ export const Mode: FC = () => {
   const [theme, setThemeState] = useState<Theme>(Theme.System);
 
   useEffect(() => {
-    const isDarkMode = document.documentElement.classList.contains("dark");
+    const isDarkMode = document.documentElement.classList.contains(Theme.Dark);
+
     setThemeState(isDarkMode ? Theme.Dark : Theme.Light);
   }, []);
 
   useEffect(() => {
     const isDark =
-      theme === "dark" ||
-      (theme === "system" &&
+      theme === Theme.Dark ||
+      (theme === Theme.System &&
         window.matchMedia("(prefers-color-scheme: dark)").matches);
-    document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+
+    document.documentElement.classList[isDark ? "add" : "remove"](Theme.Dark);
   }, [theme]);
 
   return (
