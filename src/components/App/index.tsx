@@ -1,5 +1,5 @@
-import { StrictMode } from "react";
-import { type Repo } from "~/lib/types";
+import { type FC, StrictMode } from "react";
+import { type JsonRepo } from "~/lib/types";
 import {
   Card,
   CardHeader,
@@ -9,15 +9,17 @@ import {
   CardFooter,
   RepoChart,
   RepoTable,
+  Mode,
 } from "~/components";
 
 export type AppProps = {
-  repos: Repo[];
+  repos: JsonRepo[];
 };
 
-export const App: React.FC<AppProps> = ({ repos }) => {
+export const App: FC<AppProps> = ({ repos }) => {
   return (
     <StrictMode>
+      <Mode />
       <Card>
         <CardHeader>
           <CardTitle>Is Fair Source Cool Yet?</CardTitle>

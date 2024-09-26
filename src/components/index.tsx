@@ -1,6 +1,7 @@
 export { RepoChart } from "~/components/RepoChart";
 export { RepoTable } from "~/components/RepoTable";
 export { App } from "~/components/App";
+export { Mode } from "~/components/Mode";
 export {
   Card,
   CardHeader,

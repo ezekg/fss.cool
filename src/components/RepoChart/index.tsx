@@ -1,6 +1,12 @@
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { type Repo, License } from "~/lib/types";
+import { type FC, type HTMLAttributes } from "react";
+import {
+  type JsonRepo,
+  type Repo,
+  FairSourceLicenseIdentifier,
+} from "~/lib/types";
 import { format, parseISO, eachDayOfInterval, subDays } from "date-fns";
+import { cn } from "~/lib/utils";
 import {
   type ChartConfig,
   ChartContainer,
@@ -12,39 +18,42 @@ const DATE_FORMAT = "yyyy-MM-dd";
 
 const config: ChartConfig = {
   "fsl-1-0": {
-    label: License.FSL1x0,
-    color: "var(--caribbean-current)",
+    label: FairSourceLicenseIdentifier.FSL1x0,
+    color: "hsl(var(--chart-1))",
   },
   "fsl-1-1": {
-    label: License.FSL1x1,
-    color: "var(--orange-crayola)",
+    label: FairSourceLicenseIdentifier.FSL1x1,
+    color: "hsl(var(--chart-2))",
   },
   "fcl-1-0": {
-    label: License.FCL1x0,
-    color: "var(--atomic-tangerine)",
+    label: FairSourceLicenseIdentifier.FCL1x0,
+    color: "hsl(var(--chart-3))",
   },
   busl: {
-    label: License.BUSL,
-    color: "var(--slate-gray)",
+    label: FairSourceLicenseIdentifier.BUSL,
+    color: "hsl(var(--chart-4))",
   },
 };
 
-export type RepoChartProps = {
-  repos: Repo[];
+export type RepoChartProps = HTMLAttributes<HTMLDivElement> & {
+  repos: JsonRepo[];
 };
 
-export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
-  const sortedRepos = repos
-    .map((repo) => ({
-      ...repo,
-      fss_at: parseISO(repo.fss_at),
-      oss_at: parseISO(repo.oss_at),
-    }))
+export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
+  const sortedRepos: Repo[] = repos
+    .map(
+      (repo: JsonRepo): Repo =>
+        ({
+          ...repo,
+          fss_at: parseISO(repo.fss_at),
+          oss_at: parseISO(repo.oss_at),
+        }) as Repo,
+    )
     .sort((a, b) => a.fss_at.getTime() - b.fss_at.getTime()); // asc
 
   // determine the full date range
-  const startDate = subDays(sortedRepos[0].fss_at, 3)
-  const endDate = sortedRepos[sortedRepos.length - 1].fss_at
+  const startDate = subDays(sortedRepos[0].fss_at, 3);
+  const endDate = sortedRepos[sortedRepos.length - 1].fss_at;
 
   // fill in missing dates with zero values
   const allDates = eachDayOfInterval({
@@ -54,10 +63,10 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
 
   const initialData = allDates.map((date) => ({
     date: format(date, DATE_FORMAT),
-    [License.FSL1x0]: 0,
-    [License.FSL1x1]: 0,
-    [License.FCL1x0]: 0,
-    [License.BUSL]: 0,
+    [FairSourceLicenseIdentifier.FSL1x0]: 0,
+    [FairSourceLicenseIdentifier.FSL1x1]: 0,
+    [FairSourceLicenseIdentifier.FCL1x0]: 0,
+    [FairSourceLicenseIdentifier.BUSL]: 0,
   }));
 
   // populate the data with repo info and accumulate license adoption
@@ -76,18 +85,26 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
   const cumulativeData = data.reduce(
     (acc: any[], current: any, index: number) => {
       const prev = acc[index - 1] || {
-        [License.FSL1x0]: 0,
-        [License.FSL1x1]: 0,
-        [License.FCL1x0]: 0,
-        [License.BUSL]: 0,
+        [FairSourceLicenseIdentifier.FSL1x0]: 0,
+        [FairSourceLicenseIdentifier.FSL1x1]: 0,
+        [FairSourceLicenseIdentifier.FCL1x0]: 0,
+        [FairSourceLicenseIdentifier.BUSL]: 0,
       };
 
       acc.push({
         date: current.date,
-        [License.FSL1x0]: prev[License.FSL1x0] + current[License.FSL1x0],
-        [License.FSL1x1]: prev[License.FSL1x1] + current[License.FSL1x1],
-        [License.FCL1x0]: prev[License.FCL1x0] + current[License.FCL1x0],
-        [License.BUSL]: prev[License.BUSL] + current[License.BUSL],
+        [FairSourceLicenseIdentifier.FSL1x0]:
+          prev[FairSourceLicenseIdentifier.FSL1x0] +
+          current[FairSourceLicenseIdentifier.FSL1x0],
+        [FairSourceLicenseIdentifier.FSL1x1]:
+          prev[FairSourceLicenseIdentifier.FSL1x1] +
+          current[FairSourceLicenseIdentifier.FSL1x1],
+        [FairSourceLicenseIdentifier.FCL1x0]:
+          prev[FairSourceLicenseIdentifier.FCL1x0] +
+          current[FairSourceLicenseIdentifier.FCL1x0],
+        [FairSourceLicenseIdentifier.BUSL]:
+          prev[FairSourceLicenseIdentifier.BUSL] +
+          current[FairSourceLicenseIdentifier.BUSL],
       });
 
       return acc;
@@ -96,8 +113,15 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
   );
 
   return (
-    <ChartContainer config={config} className="max-h-[400px] w-full">
-      <AreaChart data={cumulativeData} accessibilityLayer>
+    <ChartContainer
+      config={config}
+      className={cn("max-h-[400px] w-full", className)}
+    >
+      <AreaChart
+        data={cumulativeData}
+        margin={{ left: 0, right: 0 }}
+        accessibilityLayer
+      >
         {/* <CartesianGrid syncWithTicks={true} /> */}
         {/* <YAxis
           // tickLine={false}
@@ -120,28 +144,28 @@ export const RepoChart: React.FC<RepoChartProps> = ({ repos }) => {
           content={<ChartTooltipContent indicator="dot" />}
         />
         <Area
-          dataKey={License.FSL1x0}
+          dataKey={FairSourceLicenseIdentifier.FSL1x0}
           type="monotone"
           fill="var(--color-fsl-1-0)"
           stroke="var(--color-fsl-1-0)"
           stackId="a"
         />
         <Area
-          dataKey={License.FSL1x1}
+          dataKey={FairSourceLicenseIdentifier.FSL1x1}
           type="monotone"
           fill="var(--color-fsl-1-1)"
           stroke="var(--color-fsl-1-1)"
           stackId="a"
         />
         <Area
-          dataKey={License.FCL1x0}
+          dataKey={FairSourceLicenseIdentifier.FCL1x0}
           type="monotone"
           fill="var(--color-fcl-1-0)"
           stroke="var(--color-fcl-1-0)"
           stackId="a"
         />
         {/* <Area
-          dataKey={License.BUSL}
+          dataKey={FairSourceLicenseIdentifier.BUSL}
           type="monotone"
           fill="var(--color-busl)"
           stroke="var(--color-busl)"

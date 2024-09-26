@@ -4,6 +4,25 @@ import { App } from "~/components";
 import "~/styles/globals.css";
 ---
 
+<script is:inline>
+	const getThemePreference = () => {
+		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+			return localStorage.getItem('theme');
+		}
+		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	};
+	const isDark = getThemePreference() === 'dark';
+	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+
+	if (typeof localStorage !== 'undefined') {
+		const observer = new MutationObserver(() => {
+			const isDark = document.documentElement.classList.contains('dark');
+			localStorage.setItem('theme', isDark ? 'dark' : 'light');
+		});
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+	}
+</script>
+
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -13,12 +32,6 @@ import "~/styles/globals.css";
     <title>Is Fair Source Cool Yet?</title>
   </head>
   <body class="bg-background">
-    <div class="flex flex-col items-center sm:h-screen mx-auto p-40">
-      <div class="flex flex-col gap-1 w-full md:w-[1080px] p-4 lg:p-0">
-        <div class="bg-primary p-4 -mx-4 sm:p-6 sm:-mx-6 sm:rounded-xl">
-          <App client:load repos={repos} />
-        </div>
-      </div>
-    </div>
+    <App client:load repos={repos} />
   </body>
 </html>

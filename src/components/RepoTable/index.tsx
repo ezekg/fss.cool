@@ -1,7 +1,17 @@
-import { useState, useEffect } from "react";
-import { type Repo } from "~/lib/types";
+import { type FC, type HTMLAttributes, useState } from "react";
+import { type JsonRepo, type Repo } from "~/lib/types";
 import { format, parseISO } from "date-fns";
-import { Info, SortAsc, SortDesc, ExternalLink } from "lucide-react";
+import {
+  Info,
+  SortAsc,
+  SortDesc,
+  ExternalLink,
+  ChevronsUpDown,
+  Plus,
+  X,
+} from "lucide-react";
+import { cn } from "~/lib/utils";
+import { Button } from "~/components/ui/button";
 import {
   Table,
   TableBody,
@@ -25,11 +35,12 @@ enum SortOrder {
   Desc = "desc",
 }
 
-export type RepoTableProps = {
-  repos: Repo[];
+export type RepoTableProps = HTMLAttributes<HTMLDivElement> & {
+  repos: JsonRepo[];
 };
 
-export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
+export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
   const [orderByStars, setOrderByStars] = useState<SortOrder>(SortOrder.None);
   const [orderByLicense, setOrderByLicense] = useState<SortOrder>(
     SortOrder.None,
@@ -57,6 +68,10 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
     }
   };
 
+  const toggleIsCollapsed = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   const toggleOrderByStars = () => {
     setOrderByStars(cycleSortOrder(orderByStars));
   };
@@ -77,11 +92,14 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
     setOrderByChangeAt(cycleSortOrder(orderByChangeAt));
   };
 
-  const data = repos.map((repo) => ({
-    ...repo,
-    fss_at: parseISO(repo.fss_at),
-    oss_at: parseISO(repo.oss_at),
-  }));
+  const data: Repo[] = repos.map(
+    (repo: JsonRepo): Repo =>
+      ({
+        ...repo,
+        fss_at: parseISO(repo.fss_at),
+        oss_at: parseISO(repo.oss_at),
+      }) as Repo,
+  );
 
   // FIXME(ezekg) these don't always play nicely together
   if (orderByChangeAt !== SortOrder.None) {
@@ -124,22 +142,48 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
     );
   }
 
+  let visible: Repo[] = [...data];
+  if (isCollapsed) {
+    visible = visible.slice(0, 10);
+  }
+
   return (
     <TooltipProvider>
-      <Table>
+      <Table className={cn(className)}>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[200px] whitespace-nowrap">
+            <TableHead className="w-[99%] whitespace-nowrap">
+              Showing {visible.length}/{data.length} Fair Source repositories
+            </TableHead>
+            <TableHead></TableHead>
+            <TableHead></TableHead>
+            <TableHead></TableHead>
+            <TableHead></TableHead>
+            <TableHead className="text-right">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-9 p-0"
+                title="Toggle show all"
+                onClick={toggleIsCollapsed}
+              >
+                <ChevronsUpDown className="h-4 w-4" />
+                <span className="sr-only">Toggle</span>
+              </Button>
+            </TableHead>
+          </TableRow>
+          <TableRow>
+            <TableHead className="w-[99%] whitespace-nowrap">
               Repository
             </TableHead>
-            <TableHead className="w-[100px] whitespace-nowrap">
+            <TableHead className="whitespace-nowrap">
               Stars
               <span
                 onClick={toggleOrderByStars}
                 className="inline-block cursor-pointer"
               >
                 {orderByStars === SortOrder.None ? (
-                  <SortDesc className="relative inline text-slate-300 w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 ) : orderByStars === SortOrder.Desc ? (
                   <SortDesc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 ) : orderByStars === SortOrder.Asc ? (
@@ -154,7 +198,7 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
                 className="inline-block cursor-pointer"
               >
                 {orderByLicense === SortOrder.None ? (
-                  <SortDesc className="relative inline text-slate-300 w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 ) : orderByLicense === SortOrder.Desc ? (
                   <SortDesc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 ) : orderByLicense === SortOrder.Asc ? (
@@ -188,7 +232,7 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
                 className="inline-block cursor-pointer"
               >
                 {orderByChangeLicense === SortOrder.None ? (
-                  <SortDesc className="relative inline text-slate-300 w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 ) : orderByChangeLicense === SortOrder.Desc ? (
                   <SortDesc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 ) : orderByChangeLicense === SortOrder.Asc ? (
@@ -214,7 +258,7 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
                 className="inline-block cursor-pointer"
               >
                 {orderByAdoptedAt === SortOrder.None ? (
-                  <SortDesc className="relative inline text-slate-300 w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 ) : orderByAdoptedAt === SortOrder.Desc ? (
                   <SortDesc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 ) : orderByAdoptedAt === SortOrder.Asc ? (
@@ -241,7 +285,7 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
                 className="inline-block cursor-pointer"
               >
                 {orderByChangeAt === SortOrder.None ? (
-                  <SortDesc className="relative inline text-slate-300 w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 ) : orderByChangeAt === SortOrder.Desc ? (
                   <SortDesc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
                 ) : orderByChangeAt === SortOrder.Asc ? (
@@ -252,12 +296,12 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((repo) => (
+          {visible.map((repo) => (
             <TableRow key={repo.repo_id}>
-              <TableCell className="font-bold whitespace-nowrap">
+              <TableCell className="w-[99%] font-bold whitespace-nowrap">
                 <a href={repo.repo_url} rel="noopener" target="_blank">
                   @{repo.repo_org}/{repo.repo_name}{" "}
-                  <ExternalLink className="inline relative text-slate-400 w-[14px] h-[14px] top-[-2px]" />
+                  <ExternalLink className="inline relative text-muted w-[14px] h-[14px] top-[-2px]" />
                 </a>
               </TableCell>
               <TableCell className="whitespace-nowrap">
@@ -270,7 +314,7 @@ export const RepoTable: React.FC<RepoTableProps> = ({ repos }) => {
               <TableCell className="whitespace-nowrap">
                 <a href={repo.license_url} rel="noopener" target="_blank">
                   {repo.license_fss}{" "}
-                  <ExternalLink className="inline relative text-slate-400 w-[14px] h-[14px] top-[-2px]" />
+                  <ExternalLink className="inline relative text-muted w-[14px] h-[14px] top-[-2px]" />
                 </a>
               </TableCell>
               <TableCell className="whitespace-nowrap">

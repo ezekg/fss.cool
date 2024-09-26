@@ -1,10 +1,18 @@
-import { Octokit, type RestEndpointMethodTypes } from "@octokit/rest";
+import { Octokit } from "@octokit/rest";
 import { Octokit as OctokitCore } from "@octokit/core";
 import { type RequestOptions } from "@octokit/types";
 import { RequestError } from "@octokit/request-error";
 import { addYears } from "date-fns";
 import * as fs from "fs/promises";
 import { version } from "../package.json";
+import {
+  type SearchResult,
+  type Repo,
+  type LicenseIdentifiers,
+  type SpdxLicenseIdentifier,
+  FairSourceLicenseIdentifier,
+  OpenSourceLicenseIdentifier,
+} from "~/lib/types";
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const OSS_AFTER = 2; // years
@@ -13,42 +21,6 @@ if (!GITHUB_TOKEN) {
   console.error(`GITHUB_TOKEN is required`);
 
   process.exit(1);
-}
-
-enum OpenSourceLicenseIdentifier {
-  Apache2x0 = "Apache-2.0",
-  MIT = "MIT",
-}
-
-enum FairSourceLicenseIdentifier {
-  FSL1x0 = "FSL-1.0",
-  FSL1x1 = "FSL-1.1",
-  FCL1x0 = "FCL-1.0",
-  BUSL = "BUSL",
-}
-
-type SearchResult =
-  RestEndpointMethodTypes["search"]["code"]["response"]["data"]["items"][0];
-type SpdxLicenseIdentifier =
-  `${FairSourceLicenseIdentifier}-${OpenSourceLicenseIdentifier}`;
-type LicenseIdentifier = [
-  FairSourceLicenseIdentifier,
-  OpenSourceLicenseIdentifier,
-];
-type LicenseIdentifiers = LicenseIdentifier[];
-
-interface Repo {
-  repo_id: number;
-  repo_org: string;
-  repo_name: string;
-  repo_url: string;
-  repo_stars: number;
-  license_url: string;
-  license_spdx: SpdxLicenseIdentifier;
-  license_fss: FairSourceLicenseIdentifier;
-  license_oss: OpenSourceLicenseIdentifier;
-  fss_at: Date;
-  oss_at: Date;
 }
 
 function retryPlugin(octokit: OctokitCore) {

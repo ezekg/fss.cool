@@ -4,15 +4,16 @@
 
 @layer base {
   :root {
-    --orange-peel: #fea028ff;
-    --caribbean-current: #176d76ff;
-    --timberwolf: #d5cac6ff;
-    --dark-cyan: #089295ff;
-    --atomic-tangerine: #f08f54ff;
-    --orange-crayola: #fe753dff;
-    --isabelline: #f2f0edff;
-    --slate-gray: #75888fff;
-    --dark-purple: #301b31ff;
+    --orange-peel: 34 99% 58%;
+    --caribbean-current: 186 67% 28%;
+    --timberwolf: 16 15% 81%;
+    --dark-cyan: 181 90% 31%;
+    --atomic-tangerine: 23 84% 64%;
+    --orange-crayola: 17 99% 62%;
+    --isabelline: 36 16% 94%;
+    --slate-gray: 196 10% 51%;
+    --dark-purple: 297 29% 15%;
+    --midnight: 211 52.7% 10.8%;
   }
 
   :root {
@@ -43,7 +44,7 @@
     --radius: 0.5rem;
   }
 
-  /* .dark {
+  .dark {
     --background: 224 71.4% 4.1%;
     --foreground: 210 20% 98%;
     --card: 224 71.4% 4.1%;
@@ -68,7 +69,7 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-  } */
+  }
 }
 
 @layer base {
