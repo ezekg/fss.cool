@@ -5,7 +5,7 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://fss.cool',
+  site: "https://fss.cool",
   integrations: [
     react({
       experimentalReactChildren: true,
