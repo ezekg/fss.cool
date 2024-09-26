@@ -9,28 +9,28 @@ const desc = `Keep tabs on the latest in Fair Source Software.`
 ---
 
 <script is:inline>
-	const getThemePreference = () => {
-		if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-			return localStorage.getItem("theme");
-		}
-		return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-	};
-	const isDark = getThemePreference() === "dark";
-	document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+  const getThemePreference = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  };
+  const isDark = getThemePreference() === "dark";
+  document.documentElement.classList[isDark ? "add" : "remove"]("dark");
 
-	if (typeof localStorage !== "undefined") {
-		const observer = new MutationObserver(() => {
-			const isDark = document.documentElement.classList.contains("dark");
-			localStorage.setItem("theme", isDark ? "dark" : "light");
-		});
-		observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-	}
+  if (typeof localStorage !== "undefined") {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+  }
 </script>
 
 <html lang="en">
   <head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>" />
+    <meta charset="utf-8" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
     <meta name="description" content={desc}>
@@ -45,6 +45,7 @@ const desc = `Keep tabs on the latest in Fair Source Software.`
     <meta name="twitter:description" content={desc}>
     <meta name="twitter:image" content="https://fss.cool/social.png">
     <meta name="twitter:card" content="summary_large_image">
+    <script src="https://cdn.usefathom.com/script.js" data-site="NJGPDYSE" defer></script>
   </head>
   <body class="bg-background">
     <App client:load updatedAt={parseISO(updatedAt)} repos={repos} />
