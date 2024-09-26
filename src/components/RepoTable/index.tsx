@@ -7,8 +7,7 @@ import {
   SortDesc,
   ExternalLink,
   ChevronsUpDown,
-  Plus,
-  X,
+  Clock,
 } from "lucide-react";
 import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
@@ -27,7 +26,7 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 
-const DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+const DATE_FORMAT = "yyyy-MM-dd";
 
 enum SortOrder {
   None = "none",
@@ -150,7 +149,7 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
   return (
     <TooltipProvider>
       <Table className={cn("relative", className)}>
-        <TableHeader className="sticky top-0">
+        <TableHeader>
           <TableRow>
             <TableHead className="w-[99%] whitespace-nowrap">
               Repository
@@ -162,11 +161,11 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
                 className="inline-block cursor-pointer"
               >
                 {orderByStars === SortOrder.None ? (
-                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : orderByStars === SortOrder.Desc ? (
-                  <SortDesc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : orderByStars === SortOrder.Asc ? (
-                  <SortAsc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortAsc className="relative inline w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : null}
               </span>
             </TableHead>
@@ -177,11 +176,11 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
                 className="inline-block cursor-pointer"
               >
                 {orderByLicense === SortOrder.None ? (
-                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : orderByLicense === SortOrder.Desc ? (
-                  <SortDesc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : orderByLicense === SortOrder.Asc ? (
-                  <SortAsc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortAsc className="relative inline w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : null}
               </span>
             </TableHead>
@@ -189,16 +188,17 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
               Change License
               <Tooltip>
                 <TooltipTrigger>
-                  <Info className="relative inline cursor-pointer pointer-events-auto w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <Info className="relative inline cursor-pointer pointer-events-auto w-[14px] h-[14px] top-[-1px] ml-1" />
                 </TooltipTrigger>
                 <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
                   <p className="text-xs">
-                    The license that the project will eventually transition to
+                    The Open Source license that the project will eventually transition to
                     under{" "}
                     <a
                       href="https://opensource.org/dosp"
                       rel="noopener"
                       target="_blank"
+                      className="underline"
                     >
                       DOSP
                     </a>
@@ -211,19 +211,19 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
                 className="inline-block cursor-pointer"
               >
                 {orderByChangeLicense === SortOrder.None ? (
-                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : orderByChangeLicense === SortOrder.Desc ? (
-                  <SortDesc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : orderByChangeLicense === SortOrder.Asc ? (
-                  <SortAsc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortAsc className="relative inline w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : null}
               </span>
             </TableHead>
             <TableHead className="relative whitespace-nowrap">
-              Adopted At
+              Adopted On
               <Tooltip>
                 <TooltipTrigger>
-                  <Info className="relative inline cursor-pointer pointer-events-auto w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <Info className="relative inline cursor-pointer pointer-events-auto w-[14px] h-[14px] top-[-1px] ml-1" />
                 </TooltipTrigger>
                 <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
                   <p className="text-xs">
@@ -237,19 +237,19 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
                 className="inline-block cursor-pointer"
               >
                 {orderByAdoptedAt === SortOrder.None ? (
-                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : orderByAdoptedAt === SortOrder.Desc ? (
-                  <SortDesc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : orderByAdoptedAt === SortOrder.Asc ? (
-                  <SortAsc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortAsc className="relative inline w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : null}
               </span>
             </TableHead>
             <TableHead className="relative whitespace-nowrap">
-              Change At
+              Change On
               <Tooltip>
                 <TooltipTrigger>
-                  <Info className="relative inline cursor-pointer pointer-events-auto w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <Info className="relative inline cursor-pointer pointer-events-auto w-[14px] h-[14px] top-[-1px] ml-1" />
                 </TooltipTrigger>
                 <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
                   <p className="text-xs">
@@ -264,11 +264,11 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
                 className="inline-block cursor-pointer"
               >
                 {orderByChangeAt === SortOrder.None ? (
-                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline text-muted w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : orderByChangeAt === SortOrder.Desc ? (
-                  <SortDesc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortDesc className="relative inline w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : orderByChangeAt === SortOrder.Asc ? (
-                  <SortAsc className="relative inline w-[14px] h-[14px] ml-[4px] top-[-1px]" />
+                  <SortAsc className="relative inline w-[14px] h-[14px] top-[-1px] ml-1" />
                 ) : null}
               </span>
             </TableHead>
@@ -279,31 +279,51 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
             <TableRow key={repo.repo_id}>
               <TableCell className="w-[99%] font-bold whitespace-nowrap">
                 <a href={repo.repo_url} rel="noopener" target="_blank">
-                  @{repo.repo_org}/{repo.repo_name}{" "}
-                  <ExternalLink className="inline relative text-muted w-[14px] h-[14px] top-[-2px]" />
+                  {repo.repo_org}/{repo.repo_name}{" "}
+                  <ExternalLink className="inline relative text-muted w-[14px] h-[14px] top-[-2px] ml-1" />
                 </a>
               </TableCell>
               <TableCell className="whitespace-nowrap">
                 {repo.repo_stars != null ? (
                   repo.repo_stars.toLocaleString("en-US")
                 ) : (
-                  <span className="text-slate-400">N/A</span>
+                  <span className="text-muted">N/A</span>
                 )}
               </TableCell>
               <TableCell className="whitespace-nowrap">
                 <a href={repo.license_url} rel="noopener" target="_blank">
                   {repo.license_fss}{" "}
-                  <ExternalLink className="inline relative text-muted w-[14px] h-[14px] top-[-2px]" />
+                  <ExternalLink className="inline relative text-muted w-[14px] h-[14px] top-[-2px] ml-1" />
                 </a>
               </TableCell>
               <TableCell className="whitespace-nowrap">
                 {repo.license_oss}
               </TableCell>
               <TableCell className="whitespace-nowrap">
-                {format(repo.fss_at, DATE_FORMAT)}
+                {format(repo.fss_at, DATE_FORMAT)}{" "}
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Clock className="inline relative text-muted w-[14px] h-[14px] top-[-1px] ml-1" />
+                  </TooltipTrigger>
+                  <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
+                    <p className="text-xs">
+                      {repo.fss_at.toISOString()}
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
               </TableCell>
               <TableCell className="whitespace-nowrap">
-                {format(repo.oss_at, DATE_FORMAT)}
+                {format(repo.oss_at, DATE_FORMAT)}{" "}
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Clock className="inline relative text-muted w-[14px] h-[14px] top-[-1px] ml-1" />
+                  </TooltipTrigger>
+                  <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
+                    <p className="text-xs">
+                    {repo.oss_at.toISOString()}
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
               </TableCell>
             </TableRow>
           ))}
