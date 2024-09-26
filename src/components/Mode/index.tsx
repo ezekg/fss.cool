@@ -1,13 +1,13 @@
-import { type FC, useState, useEffect } from "react"
-import { Moon, Sun } from "lucide-react"
+import { type FC, useState, useEffect } from "react";
+import { Moon, Sun } from "lucide-react";
 
-import { Button } from "~/components/ui/button"
+import { Button } from "~/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu"
+} from "~/components/ui/dropdown-menu";
 
 enum Theme {
   Light = "theme-light",
@@ -16,20 +16,20 @@ enum Theme {
 }
 
 export const Mode: FC = () => {
-  const [theme, setThemeState] = useState<Theme>(Theme.System)
+  const [theme, setThemeState] = useState<Theme>(Theme.System);
 
   useEffect(() => {
-    const isDarkMode = document.documentElement.classList.contains("dark")
-    setThemeState(isDarkMode ? Theme.Dark : Theme.Light)
-  }, [])
+    const isDarkMode = document.documentElement.classList.contains("dark");
+    setThemeState(isDarkMode ? Theme.Dark : Theme.Light);
+  }, []);
 
   useEffect(() => {
     const isDark =
       theme === "dark" ||
       (theme === "system" &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    document.documentElement.classList[isDark ? "add" : "remove"]("dark")
-  }, [theme])
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+  }, [theme]);
 
   return (
     <DropdownMenu>
@@ -52,5 +52,5 @@ export const Mode: FC = () => {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
-}
+  );
+};
