@@ -1,12 +1,6 @@
 import { type FC, StrictMode } from "react";
 import { type JsonRepo } from "~/lib/types";
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
   RepoChart,
   RepoTable,
   Mode,
