@@ -39,7 +39,7 @@ export const App: FC<AppProps> = ({ repos }) => {
                 licenses over time
               </p>
             </div>
-            <div className="ml-auto gap-1.5 text-sm">
+            <div className="flex items-center ml-auto gap-1.5 text-sm">
               <Mode />
             </div>
           </div>
