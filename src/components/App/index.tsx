@@ -19,32 +19,40 @@ export type AppProps = {
 export const App: FC<AppProps> = ({ repos }) => {
   return (
     <StrictMode>
-      <Mode />
-      <Card className="mx-auto max-w-lg">
-        <CardHeader>
-          <CardTitle className="text-2xl">
-            Is Fair Source Cool Yet?
-          </CardTitle>
-          <CardDescription>
-            Showing adoption of{" "}
-            <a
-              className="underline"
-              href="https://fair.io"
-              rel="noopener"
-              target="_blank"
-            >
-              Fair Source
-            </a>{" "}
-            licenses over time
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <RepoChart repos={repos} />
-        </CardContent>
-        <CardFooter className="h-[400px] overflow-y-auto">
-          <RepoTable repos={repos} />
-        </CardFooter>
-      </Card>
+      <div className="flex min-h-screen w-full flex-col">
+        <header className="top-0 z-10 items-center gap-1 border-b bg-background">
+          <div className="flex mx-auto w-full max-w-[1080px] p-4">
+            <div className="gap-1.5">
+              <h1 className="text-2xl text-pretty font-semibold tracking-tight">
+                Is Fair Source Cool Yet?
+              </h1>
+              <p className="text-sm text-pretty text-muted-foreground">
+                Showing adoption of{" "}
+                <a
+                  className="underline"
+                  href="https://fair.io"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Fair Source
+                </a>{" "}
+                licenses over time
+              </p>
+            </div>
+            <div className="ml-auto gap-1.5 text-sm">
+              <Mode />
+            </div>
+          </div>
+        </header>
+        <main className="items-center gap-1">
+          <div className="h-1/2 border-b">
+            <RepoChart repos={repos} />
+          </div>
+          <div className="flex flex-1 flex-col mx-auto w-full max-w-[1080px] p-4">
+            <RepoTable repos={repos} />
+          </div>
+        </main>
+      </div>
     </StrictMode>
   );
 };

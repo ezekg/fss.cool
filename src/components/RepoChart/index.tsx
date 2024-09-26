@@ -122,22 +122,20 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
         margin={{ left: 0, right: 0 }}
         accessibilityLayer
       >
-        {/* <CartesianGrid syncWithTicks={true} /> */}
-        {/* <YAxis
-          // tickLine={false}
-          // axisLine={false}
-          tickCount={10}
-          // tickMargin={0}
-          // minTickGap={0}
-        /> */}
+        <CartesianGrid syncWithTicks={true} />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          tickCount={16}
+          hide={true}
+        />
         <XAxis
           dataKey="date"
-          // tickLine={false}
-          // axisLine={false}
-          tickCount={4}
-          // tickMargin={8}
-          minTickGap={32}
+          tickLine={false}
+          axisLine={false}
           tickFormatter={(t) => format(parseISO(t), DATE_FORMAT)}
+          tickCount={4}
+          hide={true}
         />
         <ChartTooltip
           cursor={false}
