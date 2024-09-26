@@ -8,10 +8,10 @@ import { version } from "../package.json";
 import {
   type SearchResult,
   type Repo,
-  type LicenseIdentifiers,
-  type SpdxLicenseIdentifier,
+  type LicenseIdentifierTuples,
   FairSourceLicenseIdentifier,
   OpenSourceLicenseIdentifier,
+  SpdxLicenseIdentifier,
 } from "~/lib/types";
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -73,7 +73,7 @@ const repos = new Set<Repo>();
 
 const paths = ["LICENSE.md", "LICENSE.txt", "LICENSE"];
 
-const licenses: LicenseIdentifiers = [
+const licenses: LicenseIdentifierTuples = [
   [FairSourceLicenseIdentifier.FSL1x0, OpenSourceLicenseIdentifier.Apache2x0],
   [FairSourceLicenseIdentifier.FSL1x0, OpenSourceLicenseIdentifier.MIT],
   [FairSourceLicenseIdentifier.FSL1x1, OpenSourceLicenseIdentifier.Apache2x0],
