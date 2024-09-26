@@ -1,4 +1,4 @@
-# Is [FSS](https://fair.io) cool yet?
+# Is [fair source](https://fair.io) cool yet?
 
 Source code for https://fss.cool. Find an issue? Open a [pull request](https://github.com/ezekg/fss.cool/pulls).
 
