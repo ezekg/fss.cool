@@ -20,9 +20,11 @@ export const App: FC<AppProps> = ({ repos }) => {
   return (
     <StrictMode>
       <Mode />
-      <Card>
+      <Card className="mx-auto max-w-lg">
         <CardHeader>
-          <CardTitle>Is Fair Source Cool Yet?</CardTitle>
+          <CardTitle className="text-2xl">
+            Is Fair Source Cool Yet?
+          </CardTitle>
           <CardDescription>
             Showing adoption of{" "}
             <a

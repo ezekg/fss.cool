@@ -149,29 +149,23 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
 
   return (
     <TooltipProvider>
+      <div className="w-full flex items-center">
+        <p className="flex-grow text-sm text-muted-foreground">
+          Showing {visible.length}/{data.length} repositories
+        </p>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="w-9 p-0"
+          title="Toggle show all"
+          onClick={toggleIsCollapsed}
+        >
+          <ChevronsUpDown className="h-4 w-4" />
+          <span className="sr-only">Toggle</span>
+        </Button>
+      </div>
       <Table className={cn(className)}>
         <TableHeader>
-          <TableRow>
-            <TableHead className="w-[99%] whitespace-nowrap">
-              Showing {visible.length}/{data.length} Fair Source repositories
-            </TableHead>
-            <TableHead></TableHead>
-            <TableHead></TableHead>
-            <TableHead></TableHead>
-            <TableHead></TableHead>
-            <TableHead className="text-right">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-9 p-0"
-                title="Toggle show all"
-                onClick={toggleIsCollapsed}
-              >
-                <ChevronsUpDown className="h-4 w-4" />
-                <span className="sr-only">Toggle</span>
-              </Button>
-            </TableHead>
-          </TableRow>
           <TableRow>
             <TableHead className="w-[99%] whitespace-nowrap">
               Repository
