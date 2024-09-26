@@ -53,7 +53,7 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
 
   // determine the full date range
   const startDate = subDays(sortedRepos[0].fss_at, 3);
-  const endDate = sortedRepos[sortedRepos.length - 1].fss_at;
+  const endDate = new Date();
 
   // fill in missing dates with zero values
   const allDates = eachDayOfInterval({
