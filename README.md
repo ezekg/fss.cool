@@ -11,6 +11,11 @@ npm run dev     # develop app
 npm run build   # build app
 ```
 
-# License
+## Credit
+
+Built with [Astro](https://astro.build/), [Tailwind](https://tailwindcss.com),
+and [shadcn/ui](https://ui.shadcn.com/).
+
+## License
 
 The code is available as open source under the terms of the MIT License.
