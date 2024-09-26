@@ -192,8 +192,8 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
                 </TooltipTrigger>
                 <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
                   <p className="text-xs">
-                    The Open Source license that the project will eventually transition to
-                    under{" "}
+                    The Open Source license that the project will eventually
+                    transition to under{" "}
                     <a
                       href="https://opensource.org/dosp"
                       rel="noopener"
@@ -306,9 +306,7 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
                     <Clock className="inline relative text-muted w-[14px] h-[14px] top-[-1px] ml-1" />
                   </TooltipTrigger>
                   <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
-                    <p className="text-xs">
-                      {repo.fss_at.toISOString()}
-                    </p>
+                    <p className="text-xs">{repo.fss_at.toISOString()}</p>
                   </TooltipContent>
                 </Tooltip>
               </TableCell>
@@ -319,9 +317,7 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
                     <Clock className="inline relative text-muted w-[14px] h-[14px] top-[-1px] ml-1" />
                   </TooltipTrigger>
                   <TooltipContent className="w-fit min-w-[120px] max-w-[280px] whitespace-normal">
-                    <p className="text-xs">
-                    {repo.oss_at.toISOString()}
-                    </p>
+                    <p className="text-xs">{repo.oss_at.toISOString()}</p>
                   </TooltipContent>
                 </Tooltip>
               </TableCell>
