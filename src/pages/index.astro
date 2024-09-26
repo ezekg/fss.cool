@@ -1,5 +1,6 @@
 ---
-import { repos } from "~/data/repos.json";
+import { updatedAt, repos } from "~/data/repos.json";
+import { parseISO } from "date-fns";
 import { App } from "~/components";
 import "~/styles/globals.css";
 ---
@@ -32,6 +33,6 @@ import "~/styles/globals.css";
     <title>Is Fair Source Cool Yet?</title>
   </head>
   <body class="bg-background">
-    <App client:load repos={repos} />
+    <App client:load updatedAt={parseISO(updatedAt)} repos={repos} />
   </body>
 </html>

@@ -1,16 +1,14 @@
 import { type FC, StrictMode } from "react";
 import { type JsonRepo } from "~/lib/types";
-import {
-  RepoChart,
-  RepoTable,
-  Mode,
-} from "~/components";
+import { format } from "date-fns";
+import { RepoChart, RepoTable, Mode } from "~/components";
 
 export type AppProps = {
+  updatedAt: Date;
   repos: JsonRepo[];
 };
 
-export const App: FC<AppProps> = ({ repos }) => {
+export const App: FC<AppProps> = ({ updatedAt, repos }) => {
   return (
     <StrictMode>
       <div className="flex min-h-screen w-full flex-col">
@@ -42,12 +40,23 @@ export const App: FC<AppProps> = ({ repos }) => {
           <div className="h-1/2 border-b">
             <RepoChart repos={repos} />
           </div>
-          <div className="flex flex-1 flex-col mx-auto w-full max-w-[1080px] p-4">
+          <div className="flex flex-1 flex-col mx-auto w-full max-w-[1080px] py-4">
             <RepoTable repos={repos} />
           </div>
         </main>
-        <footer className="align-bottom mt-auto text-sm text-center text-muted-foreground p-4">
-          ❤️ <a href="https://x.com/_m27e" rel="noopener" target="_blank">@_m27e</a>
+        <footer className="align-bottom mt-auto">
+          <div className="flex flex-1 flex-col mx-auto w-full max-w-[1080px] p-4">
+            <p className="text-sm text-muted mb-2">
+              Last updated: {format(updatedAt, "yyyy-MM-dd hh:mm:ss O")}{" "}
+              (updated weekly)
+            </p>
+            <p className="text-sm font-semibold text-muted-foreground">
+              ❤️{" "}
+              <a href="https://x.com/_m27e" rel="noopener" target="_blank">
+                @_m27e
+              </a>
+            </p>
+          </div>
         </footer>
       </div>
     </StrictMode>

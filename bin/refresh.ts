@@ -157,7 +157,11 @@ async function main() {
 
   await fs.writeFile(
     "src/data/repos.json",
-    JSON.stringify({ repos: sortedRepos }, null, 2),
+    JSON.stringify(
+      { updatedAt: new Date().toISOString(), repos: sortedRepos },
+      null,
+      2,
+    ),
     "utf-8",
   );
 }
