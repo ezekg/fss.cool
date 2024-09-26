@@ -46,6 +46,9 @@ export const App: FC<AppProps> = ({ repos }) => {
             <RepoTable repos={repos} />
           </div>
         </main>
+        <footer className="align-bottom mt-auto text-sm text-center text-muted-foreground p-4">
+          ❤️ <a href="https://x.com/_m27e" rel="noopener" target="_blank">@_m27e</a>
+        </footer>
       </div>
     </StrictMode>
   );
