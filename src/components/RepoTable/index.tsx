@@ -325,7 +325,7 @@ export const RepoTable: FC<RepoTableProps> = ({ className, repos }) => {
           ))}
         </TableBody>
       </Table>
-      <div className="w-full flex items-center p-4">
+      <div className="w-full flex items-center p-4 pb-0">
         <p className="flex-grow text-sm text-muted-foreground">
           Showing {visible.length}/{data.length} repositories
         </p>

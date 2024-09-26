@@ -46,9 +46,22 @@ export const App: FC<AppProps> = ({ updatedAt, repos }) => {
         </main>
         <footer className="align-bottom mt-auto">
           <div className="flex flex-1 flex-col mx-auto w-full max-w-[1080px] p-4">
-            <p className="text-sm text-muted mb-2">
-              Last updated: {formatISO(updatedAt)} (updated weekly)
-            </p>
+            <div className="w-full mb-2 md:flex">
+              <p className="text-sm text-muted flex-grow md:w-1/2">
+                Last updated: {formatISO(updatedAt)} (updated weekly)
+              </p>
+              <p className="text-sm text-muted md:text-right md:w-1/2">
+                Find an issue?{" "}
+                <a
+                  className="underline"
+                  href="https://github.com/ezekg/fss.cool"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Open a PR.
+                </a>
+              </p>
+            </div>
             <p className="text-sm font-semibold text-muted-foreground">
               ❤️{" "}
               <a href="https://x.com/_m27e" rel="noopener" target="_blank">
