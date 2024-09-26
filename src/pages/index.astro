@@ -10,20 +10,20 @@ const desc = `Keep tabs on the latest in Fair Source Software.`
 
 <script is:inline>
 	const getThemePreference = () => {
-		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-			return localStorage.getItem('theme');
+		if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+			return localStorage.getItem("theme");
 		}
-		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 	};
-	const isDark = getThemePreference() === 'dark';
-	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+	const isDark = getThemePreference() === "dark";
+	document.documentElement.classList[isDark ? "add" : "remove"]("dark");
 
-	if (typeof localStorage !== 'undefined') {
+	if (typeof localStorage !== "undefined") {
 		const observer = new MutationObserver(() => {
-			const isDark = document.documentElement.classList.contains('dark');
-			localStorage.setItem('theme', isDark ? 'dark' : 'light');
+			const isDark = document.documentElement.classList.contains("dark");
+			localStorage.setItem("theme", isDark ? "dark" : "light");
 		});
-		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 	}
 </script>
 
@@ -31,20 +31,20 @@ const desc = `Keep tabs on the latest in Fair Source Software.`
   <head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>" />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
-    <meta name='description' content={desc}>
-    <meta property='og:title' content={title}>
-    <meta property='og:description' content={desc}>
-    <meta property='og:image' content='https://fss.cool/social.png'>
-    <meta property='og:type' content='website'>
-    <meta property='og:url' content='https://fss.cool'>
-    <meta property='twitter:domain' content='fss.cool'>
-    <meta property='twitter:url' content='https://fss.cool'>
-    <meta name='twitter:title' content={title}>
-    <meta name='twitter:description' content={desc}>
-    <meta name='twitter:image' content='https://fss.cool/social.png'>
-    <meta name='twitter:card' content='summary_large_image'>
+    <meta name="description" content={desc}>
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={desc}>
+    <meta property="og:image" content="https://fss.cool/social.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fss.cool">
+    <meta property="twitter:domain" content="fss.cool">
+    <meta property="twitter:url" content="https://fss.cool">
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:description" content={desc}>
+    <meta name="twitter:image" content="https://fss.cool/social.png">
+    <meta name="twitter:card" content="summary_large_image">
   </head>
   <body class="bg-background">
     <App client:load updatedAt={parseISO(updatedAt)} repos={repos} />
