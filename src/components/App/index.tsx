@@ -48,7 +48,7 @@ export const App: FC<AppProps> = ({ updatedAt, repos }) => {
           <div className="flex flex-1 flex-col mx-auto w-full max-w-[1080px] p-4">
             <div className="w-full mb-2 md:flex">
               <p className="text-sm text-muted flex-grow md:w-1/2">
-                Last updated: {formatISO(updatedAt)} (updated weekly)
+                Last updated: {formatISO(updatedAt)}
               </p>
               <p className="text-sm text-muted md:text-right md:w-1/2">
                 Find an issue?{" "}
