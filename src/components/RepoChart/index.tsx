@@ -19,27 +19,27 @@ const config: ChartConfig = {
   },
   "fsl-1-0-mit": {
     label: SpdxLicenseIdentifier.FSL1x0MIT,
-    color: "hsl(var(--chart-1))",
+    color: "hsl(var(--chart-2))",
   },
   "fsl-1-1-alv2": {
     label: SpdxLicenseIdentifier.FSL1x1Apache2x0,
-    color: "hsl(var(--chart-2))",
+    color: "hsl(var(--chart-3))",
   },
   "fsl-1-1-mit": {
     label: SpdxLicenseIdentifier.FSL1x1MIT,
-    color: "hsl(var(--chart-2))",
+    color: "hsl(var(--chart-4))",
   },
   "fcl-1-0-alv2": {
     label: SpdxLicenseIdentifier.FCL1x0Apache2x0,
-    color: "hsl(var(--chart-3))",
+    color: "hsl(var(--chart-5))",
   },
   "fcl-1-0-mit": {
     label: SpdxLicenseIdentifier.FCL1x0MIT,
-    color: "hsl(var(--chart-3))",
+    color: "hsl(var(--chart-6))",
   },
   busl: {
     label: SpdxLicenseIdentifier.BUSL,
-    color: "hsl(var(--chart-4))",
+    color: "hsl(var(--chart-7))",
   },
 };
 
