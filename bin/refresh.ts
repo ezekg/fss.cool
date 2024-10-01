@@ -109,19 +109,28 @@ async function main() {
           continue;
         }
 
-        const {
-          data: [{ commit }],
-        } = await octokit.rest.repos.listCommits({
-          owner: item.repository.owner.login,
-          repo: item.repository.name,
-          path: item.path,
-          per_page: 1,
-        });
-
         const { data: repo } = await octokit.rest.repos.get({
           owner: item.repository.owner.login,
           repo: item.repository.name,
         });
+
+        const {
+          data: commits,
+        } = await octokit.rest.repos.listCommits({
+          owner: repo.owner.login,
+          repo: repo.name,
+          path: item.path,
+          per_page: 50,
+        });
+
+        // attempt to find the commit that adopted FSS
+        let { commit } = commits.find(({ commit }) =>
+          commit.message.match(/fsl|functional source|fcl|fair core|busl|fair source|fss/i)
+        )!;
+
+        if (commit == null) {
+          ({ commit } = commits[0]);
+        }
 
         const adoptedAt = new Date(commit.author!.date!);
         const changeAt = addYears(adoptedAt, OSS_AFTER);
