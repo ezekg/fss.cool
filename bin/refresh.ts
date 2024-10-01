@@ -122,16 +122,13 @@ async function main() {
         });
 
         // attempt to find the commit that adopted FSS
-        let { commit } = commits.find(({ commit }) =>
+        const adoptedCommit = commits.find(({ commit }) =>
           commit.message.match(
             /fsl|functional source|fcl|fair core|busl|fair source|fss/i,
           ),
-        )!;
+        );
 
-        if (commit == null) {
-          ({ commit } = commits[0]);
-        }
-
+        const { commit } = adoptedCommit || commits[0];
         const adoptedAt = new Date(commit.author!.date!);
         const changeAt = addYears(adoptedAt, OSS_AFTER);
 

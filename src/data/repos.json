@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2024-10-01T11:33:42-05:00",
+  "updatedAt": "2024-10-01T12:03:32-05:00",
   "repos": [
     {
       "repo_id": 837817793,
@@ -50,8 +50,8 @@
       "license_spdx": "FSL-1.1-MIT",
       "license_fss": "FSL-1.1",
       "license_oss": "MIT",
-      "fss_at": "2024-05-07T09:08:38.000Z",
-      "oss_at": "2026-05-07T09:08:38.000Z"
+      "fss_at": "2024-02-06T17:27:17.000Z",
+      "oss_at": "2026-02-06T17:27:17.000Z"
     },
     {
       "repo_id": 808336901,
@@ -219,8 +219,8 @@
       "license_spdx": "FSL-1.1-MIT",
       "license_fss": "FSL-1.1",
       "license_oss": "MIT",
-      "fss_at": "2024-09-06T15:15:25.000Z",
-      "oss_at": "2026-09-06T15:15:25.000Z"
+      "fss_at": "2024-09-06T15:14:51.000Z",
+      "oss_at": "2026-09-06T15:14:51.000Z"
     },
     {
       "repo_id": 611669523,
@@ -349,8 +349,8 @@
       "license_spdx": "FSL-1.1-ALv2",
       "license_fss": "FSL-1.1",
       "license_oss": "Apache-2.0",
-      "fss_at": "2024-06-28T15:30:36.000Z",
-      "oss_at": "2026-06-28T15:30:36.000Z"
+      "fss_at": "2024-06-28T14:42:52.000Z",
+      "oss_at": "2026-06-28T14:42:52.000Z"
     },
     {
       "repo_id": 667550736,
@@ -687,8 +687,8 @@
       "license_spdx": "FSL-1.1-MIT",
       "license_fss": "FSL-1.1",
       "license_oss": "MIT",
-      "fss_at": "2024-09-04T21:29:10.000Z",
-      "oss_at": "2026-09-04T21:29:10.000Z"
+      "fss_at": "2024-08-06T09:50:09.000Z",
+      "oss_at": "2026-08-06T09:50:09.000Z"
     },
     {
       "repo_id": 769023213,
@@ -774,7 +774,7 @@
       "repo_org": "getsentry",
       "repo_url": "https://github.com/getsentry/sentry",
       "repo_stars": 38681,
-      "license_url": "https://github.com/getsentry/sentry/blob/fe82330edea3a28eada9bad363855ef4feb02bb9/LICENSE.md",
+      "license_url": "https://github.com/getsentry/sentry/blob/3db0a943a80cae1b55f73a9ab4941e2587cc67d0/LICENSE.md",
       "license_spdx": "FSL-1.1-ALv2",
       "license_fss": "FSL-1.1",
       "license_oss": "Apache-2.0",
@@ -903,7 +903,7 @@
       "repo_name": "gitbutler",
       "repo_org": "gitbutlerapp",
       "repo_url": "https://github.com/gitbutlerapp/gitbutler",
-      "repo_stars": 12594,
+      "repo_stars": 12593,
       "license_url": "https://github.com/gitbutlerapp/gitbutler/blob/b33c7b04869ba4ae9d6d00c0ffdb6a6d52977c71/LICENSE.md",
       "license_spdx": "FSL-1.1-MIT",
       "license_fss": "FSL-1.1",
@@ -1129,8 +1129,8 @@
       "license_spdx": "FCL-1.0-ALv2",
       "license_fss": "FCL-1.0",
       "license_oss": "Apache-2.0",
-      "fss_at": "2024-10-01T12:25:11.000Z",
-      "oss_at": "2026-10-01T12:25:11.000Z"
+      "fss_at": "2024-07-18T14:57:14.000Z",
+      "oss_at": "2026-07-18T14:57:14.000Z"
     },
     {
       "repo_id": 865026159,
@@ -1397,7 +1397,7 @@
       "repo_name": "outspeed",
       "repo_org": "outspeed-ai",
       "repo_url": "https://github.com/outspeed-ai/outspeed",
-      "repo_stars": 278,
+      "repo_stars": 279,
       "license_url": "https://github.com/outspeed-ai/outspeed/blob/8b5a3695406e8a0b35cd8c693f5fa1e993a7d7ac/LICENSE.txt",
       "license_spdx": "FSL-1.1-ALv2",
       "license_fss": "FSL-1.1",
@@ -1657,7 +1657,7 @@
       "repo_name": "gpt-pilot",
       "repo_org": "Pythagora-io",
       "repo_url": "https://github.com/Pythagora-io/gpt-pilot",
-      "repo_stars": 29969,
+      "repo_stars": 29974,
       "license_url": "https://github.com/Pythagora-io/gpt-pilot/blob/dcdb1b63a68a125b17593275236b0b59aaa79a63/LICENSE",
       "license_spdx": "FSL-1.1-MIT",
       "license_fss": "FSL-1.1",
@@ -1844,8 +1844,8 @@
       "license_spdx": "FSL-1.1-MIT",
       "license_fss": "FSL-1.1",
       "license_oss": "MIT",
-      "fss_at": "2024-07-16T02:14:05.000Z",
-      "oss_at": "2026-07-16T02:14:05.000Z"
+      "fss_at": "2024-07-16T02:12:09.000Z",
+      "oss_at": "2026-07-16T02:12:09.000Z"
     },
     {
       "repo_id": 670891489,
@@ -1987,8 +1987,8 @@
       "license_spdx": "FSL-1.0-ALv2",
       "license_fss": "FSL-1.0",
       "license_oss": "Apache-2.0",
-      "fss_at": "2023-11-21T16:42:18.000Z",
-      "oss_at": "2025-11-21T16:42:18.000Z"
+      "fss_at": "2023-11-21T16:32:17.000Z",
+      "oss_at": "2025-11-21T16:32:17.000Z"
     },
     {
       "repo_id": 840072316,
