@@ -86,7 +86,7 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
     const dataPoint = acc.find((d: any) => d.date === dateKey);
 
     if (dataPoint) {
-      dataPoint[`${repo.license_fss}-${repo.license_oss}`]++;
+      dataPoint[repo.license_spdx]++;
     }
 
     return acc;
