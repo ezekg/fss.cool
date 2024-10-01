@@ -92,7 +92,7 @@ async function main() {
 
     const options = octokit.rest.search.code.endpoint.merge({
       q: term,
-      per_page: 100,
+      per_page: 50,
     });
 
     for await (const response of octokit.paginate.iterator<SearchResult>(
