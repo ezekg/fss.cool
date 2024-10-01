@@ -114,9 +114,7 @@ async function main() {
           repo: item.repository.name,
         });
 
-        const {
-          data: commits,
-        } = await octokit.rest.repos.listCommits({
+        const { data: commits } = await octokit.rest.repos.listCommits({
           owner: repo.owner.login,
           repo: repo.name,
           path: item.path,
@@ -125,7 +123,9 @@ async function main() {
 
         // attempt to find the commit that adopted FSS
         let { commit } = commits.find(({ commit }) =>
-          commit.message.match(/fsl|functional source|fcl|fair core|busl|fair source|fss/i)
+          commit.message.match(
+            /fsl|functional source|fcl|fair core|busl|fair source|fss/i,
+          ),
         )!;
 
         if (commit == null) {
