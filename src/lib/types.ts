@@ -2,6 +2,7 @@ import { type RestEndpointMethodTypes } from "@octokit/rest";
 
 export enum OpenSourceLicenseIdentifier {
   Apache2x0 = "Apache-2.0",
+  ALv2 = "ALv2",
   MIT = "MIT",
 }
 
@@ -13,13 +14,20 @@ export enum FairSourceLicenseIdentifier {
 }
 
 export enum SpdxLicenseIdentifier {
-  FSL1x0Apache2x0 = "FSL-1.0-Apache-2.0",
+  FSL1x0ALv2 = "FSL-1.0-ALv2",
   FSL1x0MIT = "FSL-1.0-MIT",
-  FSL1x1Apache2x0 = "FSL-1.1-Apache-2.0",
+  FSL1x1ALv2 = "FSL-1.1-ALv2",
   FSL1x1MIT = "FSL-1.1-MIT",
-  FCL1x0Apache2x0 = "FCL-1.0-Apache-2.0",
+  FCL1x0ALv2 = "FCL-1.0-ALv2",
   FCL1x0MIT = "FCL-1.0-MIT",
   BUSL = "BUSL",
+
+  /** @deprecated */
+  FSL1x0Apache2x0 = "FSL-1.0-Apache-2.0",
+  /** @deprecated */
+  FSL1x1Apache2x0 = "FSL-1.1-Apache-2.0",
+  /** @deprecated */
+  FCL1x0Apache2x0 = "FCL-1.0-Apache-2.0",
 }
 
 export type SearchResult =

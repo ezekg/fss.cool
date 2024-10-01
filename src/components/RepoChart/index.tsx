@@ -14,7 +14,7 @@ const DATE_FORMAT = "yyyy-MM-dd";
 
 const config: ChartConfig = {
   "fsl-1-0-alv2": {
-    label: SpdxLicenseIdentifier.FSL1x0Apache2x0,
+    label: SpdxLicenseIdentifier.FSL1x0ALv2,
     color: "hsl(var(--chart-1))",
   },
   "fsl-1-0-mit": {
@@ -22,7 +22,7 @@ const config: ChartConfig = {
     color: "hsl(var(--chart-2))",
   },
   "fsl-1-1-alv2": {
-    label: SpdxLicenseIdentifier.FSL1x1Apache2x0,
+    label: SpdxLicenseIdentifier.FSL1x1ALv2,
     color: "hsl(var(--chart-3))",
   },
   "fsl-1-1-mit": {
@@ -30,7 +30,7 @@ const config: ChartConfig = {
     color: "hsl(var(--chart-4))",
   },
   "fcl-1-0-alv2": {
-    label: SpdxLicenseIdentifier.FCL1x0Apache2x0,
+    label: SpdxLicenseIdentifier.FCL1x0ALv2,
     color: "hsl(var(--chart-5))",
   },
   "fcl-1-0-mit": {
@@ -71,11 +71,11 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
 
   const initialData = allDates.map((date) => ({
     date: format(date, DATE_FORMAT),
-    [SpdxLicenseIdentifier.FSL1x0Apache2x0]: 0,
+    [SpdxLicenseIdentifier.FSL1x0ALv2]: 0,
     [SpdxLicenseIdentifier.FSL1x0MIT]: 0,
-    [SpdxLicenseIdentifier.FSL1x1Apache2x0]: 0,
+    [SpdxLicenseIdentifier.FSL1x1ALv2]: 0,
     [SpdxLicenseIdentifier.FSL1x1MIT]: 0,
-    [SpdxLicenseIdentifier.FCL1x0Apache2x0]: 0,
+    [SpdxLicenseIdentifier.FCL1x0ALv2]: 0,
     [SpdxLicenseIdentifier.FCL1x0MIT]: 0,
     [SpdxLicenseIdentifier.BUSL]: 0,
   }));
@@ -96,32 +96,32 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
   const cumulativeData = data.reduce(
     (acc: any[], current: any, index: number) => {
       const prev = acc[index - 1] || {
-        [SpdxLicenseIdentifier.FSL1x0Apache2x0]: 0,
+        [SpdxLicenseIdentifier.FSL1x0ALv2]: 0,
         [SpdxLicenseIdentifier.FSL1x0MIT]: 0,
-        [SpdxLicenseIdentifier.FSL1x1Apache2x0]: 0,
+        [SpdxLicenseIdentifier.FSL1x1ALv2]: 0,
         [SpdxLicenseIdentifier.FSL1x1MIT]: 0,
-        [SpdxLicenseIdentifier.FCL1x0Apache2x0]: 0,
+        [SpdxLicenseIdentifier.FCL1x0ALv2]: 0,
         [SpdxLicenseIdentifier.FCL1x0MIT]: 0,
         [SpdxLicenseIdentifier.BUSL]: 0,
       };
 
       acc.push({
         date: current.date,
-        [SpdxLicenseIdentifier.FSL1x0Apache2x0]:
-          prev[SpdxLicenseIdentifier.FSL1x0Apache2x0] +
-          current[SpdxLicenseIdentifier.FSL1x0Apache2x0],
+        [SpdxLicenseIdentifier.FSL1x0ALv2]:
+          prev[SpdxLicenseIdentifier.FSL1x0ALv2] +
+          current[SpdxLicenseIdentifier.FSL1x0ALv2],
         [SpdxLicenseIdentifier.FSL1x0MIT]:
           prev[SpdxLicenseIdentifier.FSL1x0MIT] +
           current[SpdxLicenseIdentifier.FSL1x0MIT],
-        [SpdxLicenseIdentifier.FSL1x1Apache2x0]:
-          prev[SpdxLicenseIdentifier.FSL1x1Apache2x0] +
-          current[SpdxLicenseIdentifier.FSL1x1Apache2x0],
+        [SpdxLicenseIdentifier.FSL1x1ALv2]:
+          prev[SpdxLicenseIdentifier.FSL1x1ALv2] +
+          current[SpdxLicenseIdentifier.FSL1x1ALv2],
         [SpdxLicenseIdentifier.FSL1x1MIT]:
           prev[SpdxLicenseIdentifier.FSL1x1MIT] +
           current[SpdxLicenseIdentifier.FSL1x1MIT],
-        [SpdxLicenseIdentifier.FCL1x0Apache2x0]:
-          prev[SpdxLicenseIdentifier.FCL1x0Apache2x0] +
-          current[SpdxLicenseIdentifier.FCL1x0Apache2x0],
+        [SpdxLicenseIdentifier.FCL1x0ALv2]:
+          prev[SpdxLicenseIdentifier.FCL1x0ALv2] +
+          current[SpdxLicenseIdentifier.FCL1x0ALv2],
         [SpdxLicenseIdentifier.FCL1x0MIT]:
           prev[SpdxLicenseIdentifier.FCL1x0MIT] +
           current[SpdxLicenseIdentifier.FCL1x0MIT],
@@ -146,10 +146,7 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
         accessibilityLayer
       >
         <CartesianGrid syncWithTicks={true} />
-        <YAxis
-          tickCount={32}
-          hide={true}
-        />
+        <YAxis tickCount={32} hide={true} />
         <XAxis
           dataKey="date"
           tickFormatter={(t) => format(parseISO(t), DATE_FORMAT)}
@@ -163,7 +160,7 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
           }
         />
         <Area
-          dataKey={SpdxLicenseIdentifier.FSL1x0Apache2x0}
+          dataKey={SpdxLicenseIdentifier.FSL1x0ALv2}
           type="monotone"
           fill="var(--color-fsl-1-0-alv2)"
           stroke="var(--color-fsl-1-0-alv2)"
@@ -177,7 +174,7 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
           stackId="a"
         />
         <Area
-          dataKey={SpdxLicenseIdentifier.FSL1x1Apache2x0}
+          dataKey={SpdxLicenseIdentifier.FSL1x1ALv2}
           type="monotone"
           fill="var(--color-fsl-1-1-alv2)"
           stroke="var(--color-fsl-1-1-alv2)"
@@ -191,7 +188,7 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
           stackId="a"
         />
         <Area
-          dataKey={SpdxLicenseIdentifier.FCL1x0Apache2x0}
+          dataKey={SpdxLicenseIdentifier.FCL1x0ALv2}
           type="monotone"
           fill="var(--color-fcl-1-0-alv2)"
           stroke="var(--color-fcl-1-0-alv2)"

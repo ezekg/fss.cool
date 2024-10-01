@@ -75,10 +75,13 @@ const paths = ["LICENSE.md", "LICENSE.txt", "LICENSE"];
 
 const licenses: LicenseIdentifierTuples = [
   [FairSourceLicenseIdentifier.FSL1x0, OpenSourceLicenseIdentifier.Apache2x0],
+  [FairSourceLicenseIdentifier.FSL1x0, OpenSourceLicenseIdentifier.ALv2],
   [FairSourceLicenseIdentifier.FSL1x0, OpenSourceLicenseIdentifier.MIT],
   [FairSourceLicenseIdentifier.FSL1x1, OpenSourceLicenseIdentifier.Apache2x0],
+  [FairSourceLicenseIdentifier.FSL1x1, OpenSourceLicenseIdentifier.ALv2],
   [FairSourceLicenseIdentifier.FSL1x1, OpenSourceLicenseIdentifier.MIT],
   [FairSourceLicenseIdentifier.FCL1x0, OpenSourceLicenseIdentifier.Apache2x0],
+  [FairSourceLicenseIdentifier.FCL1x0, OpenSourceLicenseIdentifier.ALv2],
   [FairSourceLicenseIdentifier.FCL1x0, OpenSourceLicenseIdentifier.MIT],
 ];
 
@@ -86,12 +89,11 @@ async function main() {
   for (let license of licenses) {
     const [fssLicense, ossLicense] = license;
     const spdxLicense = `${fssLicense}-${ossLicense}` as SpdxLicenseIdentifier;
-    const term = `${spdxLicense}`;
 
     console.log(`Searching for FSS repos licensed under ${spdxLicense}`);
 
     const options = octokit.rest.search.code.endpoint.merge({
-      q: term,
+      q: `${spdxLicense}`,
       per_page: 50,
     });
 
@@ -124,6 +126,23 @@ async function main() {
         const adoptedAt = new Date(commit.author!.date!);
         const changeAt = addYears(adoptedAt, OSS_AFTER);
 
+        // normalize identifers (e.g. XXX-Apache-2.0 is now XXX-ALv2)
+        let normalizedSpdxLicense = spdxLicense;
+        let normalizedFssLicense = fssLicense;
+        let normalizedOssLicense = ossLicense;
+
+        switch (ossLicense) {
+          case OpenSourceLicenseIdentifier.Apache2x0:
+            normalizedSpdxLicense =
+              `${fssLicense}-${OpenSourceLicenseIdentifier.ALv2}` as SpdxLicenseIdentifier;
+
+            break;
+          case OpenSourceLicenseIdentifier.ALv2:
+            normalizedOssLicense = OpenSourceLicenseIdentifier.Apache2x0;
+
+            break;
+        }
+
         // FIXME(ezekg) dedupe on repo name to filter oob-forks?
 
         repos.add({
@@ -133,9 +152,9 @@ async function main() {
           repo_url: repo.html_url,
           repo_stars: repo.stargazers_count,
           license_url: item.html_url,
-          license_spdx: spdxLicense,
-          license_fss: fssLicense,
-          license_oss: ossLicense,
+          license_spdx: normalizedSpdxLicense,
+          license_fss: normalizedFssLicense,
+          license_oss: normalizedOssLicense,
           fss_at: adoptedAt,
           oss_at: changeAt,
         });
