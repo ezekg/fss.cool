@@ -122,7 +122,7 @@ async function main() {
         });
 
         // attempt to find the commit that adopted FSS
-        const adoptedCommit = commits.find(({ commit }) =>
+        const adoptedCommit = [...commits].reverse().find(({ commit }) =>
           commit.message.match(
             /fsl|functional source|fcl|fair core|busl|fair source|fss/i,
           ),
