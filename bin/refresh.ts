@@ -93,8 +93,8 @@ async function main() {
     console.log(`Searching for FSS repos licensed under ${spdxLicense}`);
 
     const options = octokit.rest.search.code.endpoint.merge({
-      q: `${spdxLicense}`,
-      per_page: 50,
+      q: `${spdxLicense} filename:LICENSE sort:author-date-asc`,
+      per_page: 100,
     });
 
     for await (const response of octokit.paginate.iterator<SearchResult>(
@@ -105,7 +105,7 @@ async function main() {
       );
 
       for (let item of response.data) {
-        if (!paths.includes(item.path)) {
+        if (!paths.some(p => item.path === p || item.path.endsWith(`/${p}`))) {
           continue;
         }
 
