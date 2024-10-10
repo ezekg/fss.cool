@@ -69,9 +69,8 @@ const octokit = new OctokitWithRetries({
   },
 });
 
-const repos = new Set<Repo>();
-
 const paths = ["LICENSE.md", "LICENSE.txt", "LICENSE"];
+const repos: { [key: string]: Repo } = {};
 
 const licenses: LicenseIdentifierTuples = [
   [FairSourceLicenseIdentifier.FSL1x0, OpenSourceLicenseIdentifier.Apache2x0],
@@ -101,11 +100,16 @@ async function main() {
       options,
     )) {
       console.log(
-        `Found ${response.data.length} FSS repos licensed under ${spdxLicense}`,
+        `Found ${response.data.length} FSS repos matching term: ${spdxLicense}`,
       );
 
       for (let item of response.data) {
         if (!paths.some(p => item.path === p || item.path.endsWith(`/${p}`))) {
+          continue;
+        }
+
+        // FIXME(ezekg) dedupe on repo name to filter oob-forks?
+        if (repos[item.repository.html_url] != null) {
           continue;
         }
 
@@ -149,9 +153,7 @@ async function main() {
             break;
         }
 
-        // FIXME(ezekg) dedupe on repo name to filter oob-forks?
-
-        repos.add({
+        repos[repo.html_url] = {
           repo_id: repo.id,
           repo_name: repo.name,
           repo_org: repo.owner.login,
@@ -163,14 +165,13 @@ async function main() {
           license_oss: normalizedOssLicense,
           fss_at: adoptedAt,
           oss_at: changeAt,
-        });
+        };
       }
     }
   }
 
-  console.log(`Sorting ${repos.size} FSS repos`);
-
-  const sortedRepos = Array.from(repos).sort(
+  const values = Object.values(repos);
+  const sorted = values.sort(
     (a, b) =>
       `${a.repo_org}/${a.repo_name}`.toLowerCase() >
       `${b.repo_org}/${b.repo_name}`.toLowerCase()
@@ -178,12 +179,12 @@ async function main() {
         : -1, // desc
   );
 
-  console.log(`Saving ${repos.size} FSS repos`);
+  console.log(`Saving ${values.length} FSS repos`);
 
   await fs.writeFile(
     "src/data/repos.json",
     JSON.stringify(
-      { updatedAt: formatISO(new Date()), repos: sortedRepos },
+      { updatedAt: formatISO(new Date()), repos: sorted },
       null,
       2,
     ),
