@@ -1,7 +1,7 @@
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { type FC, type HTMLAttributes } from "react";
 import { type JsonRepo, type Repo, SpdxLicenseIdentifier } from "~/lib/types";
-import { format, parseISO, eachDayOfInterval, subDays } from "date-fns";
+import { format, parseISO, eachDayOfInterval, addDays, subDays } from "date-fns";
 import { cn } from "~/lib/utils";
 import {
   type ChartConfig,
@@ -61,7 +61,7 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
 
   // determine the full date range
   const startDate = subDays(sortedRepos[0].fss_at, 3);
-  const endDate = new Date();
+  const endDate = addDays(sortedRepos[sortedRepos.length-1].fss_at, 3);
 
   // fill in missing dates with zero values
   const allDates = eachDayOfInterval({
