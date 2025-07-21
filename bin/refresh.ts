@@ -36,7 +36,7 @@ function retryPlugin(octokit: OctokitCore) {
           ? parseInt(error.response.headers["retry-after"] as string, 10)
           : 60;
 
-        console.log(`Rate limit exceeded: retrying in ${retryAfter} seconds`);
+        console.log(`Rate limit exceeded: retry=${retryAfter}s`);
 
         await new Promise((resolve) => setTimeout(resolve, retryAfter * 1000));
 
@@ -54,7 +54,7 @@ const octokit = new OctokitWithRetries({
   throttle: {
     onRateLimit: (retryAfter: number | string, options: RequestOptions) => {
       console.log(
-        `Request quota exhausted: request ${options.method} ${options.url}`,
+        `Request quota exhausted: method=${options.method} url=${options.url}`,
       );
 
       if (options.request!.retryCount <= 2) {
@@ -64,7 +64,7 @@ const octokit = new OctokitWithRetries({
       }
     },
     onAbuseLimit: (_retryAfter: number | string, options: RequestOptions) => {
-      console.log(`Abuse detected: request ${options.method} ${options.url}`);
+      console.log(`Abuse detected: method=${options.method} url=${options.url}`);
     },
   },
 });
@@ -91,81 +91,83 @@ async function main() {
 
     console.log(`Searching for FSS repos licensed under ${spdxLicense}`);
 
-    const options = octokit.rest.search.code.endpoint.merge({
-      q: `${spdxLicense} filename:LICENSE sort:author-date-asc`,
-      per_page: 100,
-    });
+    for (let path of paths) {
+      const options = octokit.rest.search.code.endpoint.merge({
+        q: `${spdxLicense} filename:${path} sort:author-date-asc`,
+        per_page: 100,
+      });
 
-    for await (const response of octokit.paginate.iterator<SearchResult>(
-      options,
-    )) {
-      console.log(
-        `Found ${response.data.length} FSS repos matching term: ${spdxLicense}`,
-      );
-
-      for (let item of response.data) {
-        if (!paths.some(p => item.path === p || item.path.endsWith(`/${p}`))) {
-          continue;
-        }
-
-        // FIXME(ezekg) dedupe on repo name to filter oob-forks?
-        if (repos[item.repository.html_url] != null) {
-          continue;
-        }
-
-        const { data: repo } = await octokit.rest.repos.get({
-          owner: item.repository.owner.login,
-          repo: item.repository.name,
-        });
-
-        const { data: commits } = await octokit.rest.repos.listCommits({
-          owner: repo.owner.login,
-          repo: repo.name,
-          path: item.path,
-          per_page: 50,
-        });
-
-        // attempt to find the commit that adopted FSS
-        const adoptedCommit = [...commits].reverse().find(({ commit }) =>
-          commit.message.match(
-            /fsl|functional source|fcl|fair core|busl|fair source|fss/i,
-          ),
+      for await (const response of octokit.paginate.iterator<SearchResult>(
+        options,
+      )) {
+        console.log(
+          `Found ${response.data.length} FSS repos matching: term=${spdxLicense} path=${path}`,
         );
 
-        const { commit } = adoptedCommit || commits[0];
-        const adoptedAt = new Date(commit.author!.date!);
-        const changeAt = addYears(adoptedAt, OSS_AFTER);
+        for (let item of response.data) {
+          if (!paths.some(p => item.path === p || item.path.endsWith(`/${p}`))) {
+            continue;
+          }
 
-        // normalize identifers (e.g. XXX-Apache-2.0 is now XXX-ALv2)
-        let normalizedSpdxLicense = spdxLicense;
-        let normalizedFssLicense = fssLicense;
-        let normalizedOssLicense = ossLicense;
+          // FIXME(ezekg) dedupe on repo name to filter oob-forks?
+          if (repos[item.repository.html_url] != null) {
+            continue;
+          }
 
-        switch (ossLicense) {
-          case OpenSourceLicenseIdentifier.Apache2x0:
-            normalizedSpdxLicense =
-              `${fssLicense}-${OpenSourceLicenseIdentifier.ALv2}` as SpdxLicenseIdentifier;
+          const { data: repo } = await octokit.rest.repos.get({
+            owner: item.repository.owner.login,
+            repo: item.repository.name,
+          });
 
-            break;
-          case OpenSourceLicenseIdentifier.ALv2:
-            normalizedOssLicense = OpenSourceLicenseIdentifier.Apache2x0;
+          const { data: commits } = await octokit.rest.repos.listCommits({
+            owner: repo.owner.login,
+            repo: repo.name,
+            path: item.path,
+            per_page: 50,
+          });
 
-            break;
+          // attempt to find the commit that adopted FSS
+          const adoptedCommit = [...commits].reverse().find(({ commit }) =>
+            commit.message.match(
+              /fsl|functional source|fcl|fair core|busl|fair source|fss/i,
+            ),
+          );
+
+          const { commit } = adoptedCommit || commits[0];
+          const adoptedAt = new Date(commit.author!.date!);
+          const changeAt = addYears(adoptedAt, OSS_AFTER);
+
+          // normalize identifers (e.g. XXX-Apache-2.0 is now XXX-ALv2)
+          let normalizedSpdxLicense = spdxLicense;
+          let normalizedFssLicense = fssLicense;
+          let normalizedOssLicense = ossLicense;
+
+          switch (ossLicense) {
+            case OpenSourceLicenseIdentifier.Apache2x0:
+              normalizedSpdxLicense =
+                `${fssLicense}-${OpenSourceLicenseIdentifier.ALv2}` as SpdxLicenseIdentifier;
+
+              break;
+            case OpenSourceLicenseIdentifier.ALv2:
+              normalizedOssLicense = OpenSourceLicenseIdentifier.Apache2x0;
+
+              break;
+          }
+
+          repos[repo.html_url] = {
+            repo_id: repo.id,
+            repo_name: repo.name,
+            repo_org: repo.owner.login,
+            repo_url: repo.html_url,
+            repo_stars: repo.stargazers_count,
+            license_url: item.html_url,
+            license_spdx: normalizedSpdxLicense,
+            license_fss: normalizedFssLicense,
+            license_oss: normalizedOssLicense,
+            fss_at: adoptedAt,
+            oss_at: changeAt,
+          };
         }
-
-        repos[repo.html_url] = {
-          repo_id: repo.id,
-          repo_name: repo.name,
-          repo_org: repo.owner.login,
-          repo_url: repo.html_url,
-          repo_stars: repo.stargazers_count,
-          license_url: item.html_url,
-          license_spdx: normalizedSpdxLicense,
-          license_fss: normalizedFssLicense,
-          license_oss: normalizedOssLicense,
-          fss_at: adoptedAt,
-          oss_at: changeAt,
-        };
       }
     }
   }
