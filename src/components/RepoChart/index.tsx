@@ -13,14 +13,6 @@ import {
 const DATE_FORMAT = "yyyy-MM-dd";
 
 const config: ChartConfig = {
-  "fsl-1-0-alv2": {
-    label: SpdxLicenseIdentifier.FSL1x0ALv2,
-    color: "hsl(var(--chart-1))",
-  },
-  "fsl-1-0-mit": {
-    label: SpdxLicenseIdentifier.FSL1x0MIT,
-    color: "hsl(var(--chart-2))",
-  },
   "fsl-1-1-alv2": {
     label: SpdxLicenseIdentifier.FSL1x1ALv2,
     color: "hsl(var(--chart-3))",
@@ -36,6 +28,14 @@ const config: ChartConfig = {
   "fcl-1-0-mit": {
     label: SpdxLicenseIdentifier.FCL1x0MIT,
     color: "hsl(var(--chart-6))",
+  },
+  "fsl-1-0-alv2": {
+    label: SpdxLicenseIdentifier.FSL1x0ALv2,
+    color: "hsl(var(--chart-1))",
+  },
+  "fsl-1-0-mit": {
+    label: SpdxLicenseIdentifier.FSL1x0MIT,
+    color: "hsl(var(--chart-2))",
   },
   busl: {
     label: SpdxLicenseIdentifier.BUSL,
@@ -71,12 +71,12 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
 
   const initialData = allDates.map((date) => ({
     date: format(date, DATE_FORMAT),
-    [SpdxLicenseIdentifier.FSL1x0ALv2]: 0,
-    [SpdxLicenseIdentifier.FSL1x0MIT]: 0,
     [SpdxLicenseIdentifier.FSL1x1ALv2]: 0,
     [SpdxLicenseIdentifier.FSL1x1MIT]: 0,
     [SpdxLicenseIdentifier.FCL1x0ALv2]: 0,
     [SpdxLicenseIdentifier.FCL1x0MIT]: 0,
+    [SpdxLicenseIdentifier.FSL1x0ALv2]: 0,
+    [SpdxLicenseIdentifier.FSL1x0MIT]: 0,
     [SpdxLicenseIdentifier.BUSL]: 0,
   }));
 
@@ -96,23 +96,17 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
   const cumulativeData = data.reduce(
     (acc: any[], current: any, index: number) => {
       const prev = acc[index - 1] || {
-        [SpdxLicenseIdentifier.FSL1x0ALv2]: 0,
-        [SpdxLicenseIdentifier.FSL1x0MIT]: 0,
         [SpdxLicenseIdentifier.FSL1x1ALv2]: 0,
         [SpdxLicenseIdentifier.FSL1x1MIT]: 0,
         [SpdxLicenseIdentifier.FCL1x0ALv2]: 0,
         [SpdxLicenseIdentifier.FCL1x0MIT]: 0,
+        [SpdxLicenseIdentifier.FSL1x0ALv2]: 0,
+        [SpdxLicenseIdentifier.FSL1x0MIT]: 0,
         [SpdxLicenseIdentifier.BUSL]: 0,
       };
 
       acc.push({
         date: current.date,
-        [SpdxLicenseIdentifier.FSL1x0ALv2]:
-          prev[SpdxLicenseIdentifier.FSL1x0ALv2] +
-          current[SpdxLicenseIdentifier.FSL1x0ALv2],
-        [SpdxLicenseIdentifier.FSL1x0MIT]:
-          prev[SpdxLicenseIdentifier.FSL1x0MIT] +
-          current[SpdxLicenseIdentifier.FSL1x0MIT],
         [SpdxLicenseIdentifier.FSL1x1ALv2]:
           prev[SpdxLicenseIdentifier.FSL1x1ALv2] +
           current[SpdxLicenseIdentifier.FSL1x1ALv2],
@@ -125,6 +119,12 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
         [SpdxLicenseIdentifier.FCL1x0MIT]:
           prev[SpdxLicenseIdentifier.FCL1x0MIT] +
           current[SpdxLicenseIdentifier.FCL1x0MIT],
+        [SpdxLicenseIdentifier.FSL1x0ALv2]:
+          prev[SpdxLicenseIdentifier.FSL1x0ALv2] +
+          current[SpdxLicenseIdentifier.FSL1x0ALv2],
+        [SpdxLicenseIdentifier.FSL1x0MIT]:
+          prev[SpdxLicenseIdentifier.FSL1x0MIT] +
+          current[SpdxLicenseIdentifier.FSL1x0MIT],
         [SpdxLicenseIdentifier.BUSL]:
           prev[SpdxLicenseIdentifier.BUSL] +
           current[SpdxLicenseIdentifier.BUSL],
@@ -160,20 +160,6 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
           }
         />
         <Area
-          dataKey={SpdxLicenseIdentifier.FSL1x0ALv2}
-          type="monotone"
-          fill="var(--color-fsl-1-0-alv2)"
-          stroke="var(--color-fsl-1-0-alv2)"
-          stackId="a"
-        />
-        <Area
-          dataKey={SpdxLicenseIdentifier.FSL1x0MIT}
-          type="monotone"
-          fill="var(--color-fsl-1-0-mit)"
-          stroke="var(--color-fsl-1-0-mit)"
-          stackId="a"
-        />
-        <Area
           dataKey={SpdxLicenseIdentifier.FSL1x1ALv2}
           type="monotone"
           fill="var(--color-fsl-1-1-alv2)"
@@ -199,6 +185,20 @@ export const RepoChart: FC<RepoChartProps> = ({ className, repos }) => {
           type="monotone"
           fill="var(--color-fcl-1-0-mit)"
           stroke="var(--color-fcl-1-0-mit)"
+          stackId="a"
+        />
+        <Area
+          dataKey={SpdxLicenseIdentifier.FSL1x0ALv2}
+          type="monotone"
+          fill="var(--color-fsl-1-0-alv2)"
+          stroke="var(--color-fsl-1-0-alv2)"
+          stackId="a"
+        />
+        <Area
+          dataKey={SpdxLicenseIdentifier.FSL1x0MIT}
+          type="monotone"
+          fill="var(--color-fsl-1-0-mit)"
+          stroke="var(--color-fsl-1-0-mit)"
           stackId="a"
         />
         {/* <Area

@@ -28,7 +28,7 @@ export const App: FC<AppProps> = ({ updatedAt, repos }) => {
                 >
                   Fair Source
                 </a>{" "}
-                licenses over time
+                licenses over time.
               </p>
             </div>
             <div className="flex items-center ml-auto text-sm">
