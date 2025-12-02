@@ -2,6 +2,10 @@
   "name": "fss.cool",
   "type": "module",
   "version": "0.1.0",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=10"
+  },
   "scripts": {
     "refresh": "pnpx tsx --tsconfig tsconfig.bin.json bin/refresh.ts",
     "dev": "astro dev",
