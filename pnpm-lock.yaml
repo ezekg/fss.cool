@@ -17,6 +17,9 @@ importers:
       '@astrojs/tailwind':
         specifier: ^5.1.1
         version: 5.1.1(astro@4.15.9(@types/node@22.7.1)(rollup@4.22.4)(typescript@5.6.2))(tailwindcss@3.4.13)
+      '@octokit/request-error':
+        specifier: ^7.1.0
+        version: 7.1.0
       '@octokit/rest':
         specifier: ^21.0.2
         version: 21.0.2
@@ -596,6 +599,9 @@ packages:
   '@octokit/openapi-types@22.2.0':
     resolution: {integrity: sha512-QBhVjcUa9W7Wwhm6DBFu6ZZ+1/t/oYxqc2tp81Pi41YNuJinbFRx8B133qVOrAaBbF7D/m0Et6f9/pZt9Rc+tg==}
 
+  '@octokit/openapi-types@27.0.0':
+    resolution: {integrity: sha512-whrdktVs1h6gtR+09+QsNk2+FO+49j6ga1c55YZudfEG+oKJVvJLQi3zkOm5JjiUXAagWK2tI2kTGKJ2Ys7MGA==}
+
   '@octokit/plugin-paginate-rest@11.3.3':
     resolution: {integrity: sha512-o4WRoOJZlKqEEgj+i9CpcmnByvtzoUYC6I8PD2SA95M+BJ2x8h7oLcVOg9qcowWXBOdcTRsMZiwvM3EyLm9AfA==}
     engines: {node: '>= 18'}
@@ -618,6 +624,10 @@ packages:
     resolution: {integrity: sha512-IlBTfGX8Yn/oFPMwSfvugfncK2EwRLjzbrpifNaMY8o/HTEAFqCA1FZxjD9cWvSKBHgrIhc4CSBIzMxiLsbzFQ==}
     engines: {node: '>= 18'}
 
+  '@octokit/request-error@7.1.0':
+    resolution: {integrity: sha512-KMQIfq5sOPpkQYajXHwnhjCC0slzCNScLHs9JafXc4RAJI+9f+jNDlBNaIMTvazOPLgb4BnlhGJOTbnN0wIjPw==}
+    engines: {node: '>= 20'}
+
   '@octokit/request@9.1.3':
     resolution: {integrity: sha512-V+TFhu5fdF3K58rs1pGUJIDH5RZLbZm5BI+MNF+6o/ssFNT4vWlCh/tVpF3NxGtP15HUxTTMUbsG5llAuU2CZA==}
     engines: {node: '>= 18'}
@@ -628,6 +638,9 @@ packages:
 
   '@octokit/types@13.5.1':
     resolution: {integrity: sha512-F41lGiWBKPIWPBgjSvaDXTTQptBujnozENAK3S//nj7xsFdYdirImKlBB/hTjr+Vii68SM+8jG3UJWRa6DMuDA==}
+
+  '@octokit/types@16.0.0':
+    resolution: {integrity: sha512-sKq+9r1Mm4efXW1FCk7hFSeJo4QKreL/tTbR0rz/qx/r1Oa2VV83LTA/H/MuCOX7uCIJmQVRKBcbmWoySjAnSg==}
 
   '@oslojs/encoding@1.1.0':
     resolution: {integrity: sha512-70wQhgYmndg4GCPxPPxPGevRKqTIJ2Nh4OkiMWmDAVYsTQ+Ta7Sq+rPevXyXGdzr30/qZBnyOalCszoMxlyldQ==}
@@ -3441,6 +3454,8 @@ snapshots:
 
   '@octokit/openapi-types@22.2.0': {}
 
+  '@octokit/openapi-types@27.0.0': {}
+
   '@octokit/plugin-paginate-rest@11.3.3(@octokit/core@6.1.2)':
     dependencies:
       '@octokit/core': 6.1.2
@@ -3459,6 +3474,10 @@ snapshots:
     dependencies:
       '@octokit/types': 13.5.1
 
+  '@octokit/request-error@7.1.0':
+    dependencies:
+      '@octokit/types': 16.0.0
+
   '@octokit/request@9.1.3':
     dependencies:
       '@octokit/endpoint': 10.1.1
@@ -3476,6 +3495,10 @@ snapshots:
   '@octokit/types@13.5.1':
     dependencies:
       '@octokit/openapi-types': 22.2.0
+
+  '@octokit/types@16.0.0':
+    dependencies:
+      '@octokit/openapi-types': 27.0.0
 
   '@oslojs/encoding@1.1.0': {}
 

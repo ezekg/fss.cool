@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "scripts": {
-    "refresh": "npx tsx --tsconfig tsconfig.bin.json bin/refresh.ts",
+    "refresh": "pnpx tsx --tsconfig tsconfig.bin.json bin/refresh.ts",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
@@ -15,6 +15,7 @@
     "@astrojs/check": "^0.9.3",
     "@astrojs/react": "^3.6.2",
     "@astrojs/tailwind": "^5.1.1",
+    "@octokit/request-error": "^7.1.0",
     "@octokit/rest": "^21.0.2",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-collapsible": "^1.1.0",
