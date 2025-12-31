@@ -16,7 +16,7 @@ export const App: FC<AppProps> = ({ updatedAt, repos }) => {
           <div className="flex mx-auto w-full max-w-[1080px] p-4">
             <div className="mr-8">
               <h1 className="text-2xl text-pretty font-semibold tracking-tight">
-                Is Fair Source Cool Yet? 😎
+                Is Fair Source cool yet? 😎
               </h1>
               <p className="text-sm text-pretty text-muted-foreground">
                 Showing adoption of{" "}
